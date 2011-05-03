@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="@{'/public/javascripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css'}"  type="text/css" />
+<div style="border:#CCCCCC solid 1px; min-height:50px; margin-bottom: 5px;" >
+
+#{if _space}
+    <div style="margin:5px; padding-left=20px; height:20px"><span style="padding-left: 5px;"><strong>File Upload</strong></span>
+    
+    </div>
+	<div id="uploader">
+		<p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+	</div>	 
+
+</div>
+
+<script type="text/javascript">
+
+// Convert divs to queue widgets when the DOM is ready
+$(function() {
+	$("#uploader").plupload({
+		// General settings
+		runtimes : 'flash,html5,browserplus,silverlight,gears,html4',
+		url : '@{Files.upload(_space._key())}',
+		max_file_size : '1000mb',
+		max_file_count: 20, // user can add no more then 20 files at a time
+		//chunk_size : '1mb',
+		unique_names : true,
+		multiple_queues : true,
+		//multipart_params: { 'id': '','space': $('#comment').val() },
+		// Resize images on clientside if we can
+		resize : {width : 320, height : 240, quality : 90},
+		
+		// Rename files by clicking on their titles
+		rename: true,
+		
+		// Sort files
+		sortable: true,
+
+		// Specify what files to browse for
+		filters : [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip,avi,rar"},
+			{title : "Pdf", extensions : "pdf"},
+			{title : "MS Files", extensions : "doc, ppt, xsl, csv"}
+		],
+
+		// Flash settings
+		flash_swf_url : '/public/javascripts/plupload/plupload.flash.swf',
+
+		// Silverlight settings
+		silverlight_xap_url : '/public/javascripts/plupload/plupload.silverlight.xap'
+	});
+
+	// Client side form validation
+	$('form').submit(function(e) {
+		var uploader = $('#uploader').plupload('getUploader');
+
+	    uploader.bind('FilesAdded', function(up, files) {
+	        uploader.settings.multipart_params.title = $("#title").val();
+	        uploader.settings.multipart_params.comment = $("#comment").val();        
+	    });
+		// Validate number of uploaded files
+		if (uploader.total.uploaded == 0) {
+			// Files in queue upload them first
+			if (uploader.files.length > 0) {
+				// When all files are uploaded submit form
+				uploader.bind('UploadProgress', function() {
+					if (uploader.total.uploaded == uploader.files.length)
+						$('form').submit();
+				});
+
+				uploader.start();
+			} else
+				alert('You must at least upload one file.');
+
+			e.preventDefault();
+		}
+	});
+
+	$('#uploadbtn').button();
+
+	$("#fileupload").submit(function(){
+        $.post('${_posturl}', $("#fileupload").serialize(),
+        function(data){
+	        alert(data);
+	        if(data.error){
+               alert(data.error);
+	        }
+            if(data.email_check == 'invalid'){
+
+                    $("#message_pwd").html("<div class='errorMessage'>Sorry " + data.name + ", " + data.email + " is NOT a valid e-mail address. Try again.</div>");
+            } else {
+                $("#message_pwd").html("<div class='successMessage'>" + data.email + " is a valid e-mail address. Thank you, " + data.name + ".</div>");
+                }
+        }, "json");
+
+        return false;
+
+    });
+});
+</script>
+#{/if}
+#{else}
+<div class="coreField core_text">
+ <p>The project of this business item does not have spaces configured.
+		    Files cannot be uploaded.</p>
+</div>
+#{/else}
+<script src="@{'/public/javascripts/plupload/browserplus-min.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.gears.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.silverlight.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.flash.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.browserplus.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.html4.js'}"></script>
+<script src="@{'/public/javascripts/plupload/plupload.html5.js'}"></script>
+<script src="@{'/public/javascripts/plupload/jquery.ui.plupload/jquery.ui.plupload.js'}"></script>

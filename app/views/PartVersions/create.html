@@ -1,0 +1,12 @@
+#{extends 'users.html' /}
+
+<h2>Create PartVersion</h2>
+
+<div class="entity">
+#{form @PartVersions.save(), id:'createForm'}
+	#{include 'PartVersions/_form.html' /}
+	<input type="submit" name="submit" value="Save" />
+#{/form}
+</div>
+
+<a href="@{PartVersions.index}">Cancel</a>

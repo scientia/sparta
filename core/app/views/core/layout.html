@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>&{'main.title'} - #{get 'title' /}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/core.css'}" />
+        <link rel="stylesheet" type="text/css" media="print" href="@{'/public/css/print.css'}">
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/stylesheets/_menu.css'}">        
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="/css/app.css">
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/css/screen.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/main.css'}" />
+       <!--  --> <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/themes/redmond/jquery-ui-1.8.9.custom.css'}" />
+		<!--[if lt IE 8]><link rel="stylesheet" type="text/css" media="screen, projection" href="/css/ie.css"><![endif]-->
+        #{get 'moreStyles' /}
+        <script src="@{'/public/javascripts/jquery-1.4.4.min.js'}"></script>
+        <script src="@{'/public/javascripts/jquery-ui-1.8.9.custom.min.js'}"></script>
+        <script src="@{'/public/javascripts/core.js'}"></script>
+       <!-- <script src="@{'/public/javascripts/jquery.tools.min.js'}"></script> -->
+        #{get 'moreScripts' /}
+    </head>
+  <body>
+		<div class="" id="header">
+			<div style="height:auto;"><h1><a href="@{coreController.index()}">&{'core.title'}</a></h1></div>
+			<div  style="float:right; display:inline;"><a href="@{Secure.logout()}">Logout</a></div>
+		</div>
+		<div id="globalContainer"  >
+		<div class="span-5 navigation-panel ui-widget">
+		<div class="ui-widget-header ">Navigation</div>
+		#{menu.menu /}
+		</div>
+		<!-- #{if request.actionMethod != 'index'}
+			<div id="coreBreadcrumb" class="span-21">
+				
+			</div>
+		#{/if}-->
+
+		#{if flash.success}
+			<div class="span-18 coreFlash flashSuccess">
+				${flash.success}
+			</div>
+		#{/if}
+		#{if flash.error || error}
+			<div class="span-18 coreFlash flashError ">
+				${error ?: flash.error}
+			</div>
+		#{/if}
+		
+		<div  class="span-18 content">
+			#{doLayout /}
+		</div>
+		</div>
+		<div id="coreFooter" class="footer">
+			@Scientia!
+		</div>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+#{extends 'core/layout.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/apprise.min.css'}" />
+<script src="@{'/public/javascripts/apprise.min.js'}"></script>
+<div>
+    <div class="listSort">
+	&{'core.list.title', type.name}
+	</div>
+	<div class="listButtons">
+	#{sparta.toolbar}
+	#{sparta.add name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>
+   <div class="listSort"> <div id="search-form" style="float:right;">#{core.search /}</div></div>
+	
+	#{if objects.size >0}
+        <ol class="listItems">
+          #{list items:objects, as:'object'}    
+            #{sparta.listitem id:object._key()}                
+                <span class="list-display-name"><a href="@{show(object._key())}"><strong>${object.name}</strong></a>
+                </span>
+                #{if object.project }
+                   <span class="list-item-org"><strong>Project:</strong> ${object.project}</span>
+                #{/if}
+                              
+                <p><strong>Name:</strong> ${object.name}</p><p></p>
+      
+                #{sparta.actions}
+                <a class="action-edit" href="@{edit(object._key())}">Edit</a>
+                  <a class="action-clone" href="@{clone(object._key())}">Clone</a>                  
+                  <a class="action-revise" href="@{revise(object._key())}">Revise</a>
+                  #{if object.frozen}
+                  <a class="action-freeze" href="@{xunfreeze(object._key())}">Unfreeze</a>                  
+                  #{/if}
+                  #{else}
+                  <a class="action-freeze" href="@{xfreeze(object._key())}">Freeze</a>
+                  #{/else}
+                  <a class="action-delete" href="@{xdelete(object._key())}">Delete</a>
+                #{/sparta.actions}
+            #{/sparta.listitem}           	        
+          #{/list}
+        </ol>
+	#{/if}
+	
+	#{if objects.size <= 0}
+	<div style="height:40px; font-size: 80%;"> Nothing Found!</div>
+	#{/if}
+	
+	#{if objects.size > 10}
+	<div class="listButtonsBottom">
+	#{sparta.toolbar}
+	#{sparta.add name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>
+    #{/if}
+	
+	 #{sparta.pagination/}
+	<div>
+     </div>
+</div>

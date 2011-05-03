@@ -1,0 +1,43 @@
+#{extends 'core/layout.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
+<script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
+<script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+
+<div id="coreShow" class="${type.name}">
+	<div class="listSort span-18">
+	&{'sparta.users.settings'}
+	</div>
+    <div class="ui-corner-all">
+    <div class="listButtons">
+   
+    </div>    
+    <div id="edit-tabs">
+	<ul>
+		<li><a href="#account-info">Account Information</a></li>
+		<li><a href="#password">Password</a></li>
+		<li><a href="#preferences">Preferences</a></li>		
+	</ul>
+	<div id="account-info">
+
+			
+	</div>
+	<div id="password">
+	fffdgfdg
+	</div>
+	<div id="preferences"class="objectForm">
+	fffdgfdg
+	</div>
+   </div>
+   </div>
+</div>
+<!--  change the buttons to a class -->
+<script>
+$(function() {
+	$( "#edit-tabs" ).tabs();
+
+	
+});
+</script>
+
+		

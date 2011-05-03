@@ -1,0 +1,51 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home
+GET     /users/ecos/{id}/edit                    ECOs.edit
+GET     /users/ecrs/{id}/edit                   ECRs.edit
+GET     /users/organizations/{id}/edit           Organizations.edit
+GET     /users/projects/{id}edit                Projects.edit
+GET     /users/staffs/{id}/edit                   Staffs.edit
+GET     /users/plants/{id}/edit                  Plants.edit
+GET     /users/customers/{id}/edit               Customers.edit
+GET     /users/suppliers/{id}/edit               Suppliers.edit
+GET     /users/files/{id}/edit                   Files.edit
+GET     /users/designdocuments/edit/{id}         DesignDocuments.edit
+
+#List routes
+GET     /users/parts/listparts                   Parts.listparts
+GET     /users/documents/listdocs                Documents.listdocs
+GET     /users/parts/doclist                     Parts.doclist
+GET     /users/parts/userlist                    Parts.userlist
+GET     /users/organizations/listorgs            Organizations.listorgs
+GET     /users/projects/listprojects             Projects.listprojects
+GET     /users/staffs/liststaffs                 Staffs.liststaffs
+GET     /users/customers/listcustomers           Customers.listcustomers
+GET     /users/suppliers/listsuppliers           Suppliers.listsuppliers
+GET     /users/plants/listplants                 Plants.listplants
+
+
+GET     /users/parts/{id}/edit                   Parts.edit
+GET     /users/projects/listJSON                 Projects.listJSON
+GET     /users/parts/documents                   Parts.documents
+GET     /users/designdoc                         DesignDocument.index
+GET     /users/mfgdoc                            MfgDocuments.index
+GET     /users/enggdoc                           EnggDocuments.list
+GET     /users/supportdoc                        SupportDocuments.index
+GET     /users/specdoc                           SpecDocuments.index
+GET     /users/roles/listroles                   Roles.listroles
+GET     /users/users/listusers                   Users.listusers
+GET     /users/roles/edit/{id}                   Roles.edit
+GET     /users/?                                 Users.index
+*       /users                                   module:core
+*       /                                        module:messages
+GET     /login                                   Secure.login
+GET     /logout                                  Secure.logout
+GET     /                                        Application.index
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

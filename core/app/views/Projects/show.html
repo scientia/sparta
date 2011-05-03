@@ -1,0 +1,70 @@
+#{extends 'core/layout.html' /}
+
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
+<script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
+<script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+
+<div id="coreShow " class="${type.name}">
+    <div class="listSort">
+	   <h3>&{'project.show.title', type.modelName} : ${object.displayName}</h3>
+	</div>
+	<div class="listButtons">
+	   #{sparta.toolbar}
+	      #{sparta.delete id:object._key(), name:type.modelName /}
+	      #{sparta.edit id:object._key(), name:type.modelName /}
+	   #{/sparta.toolbar}
+	</div>
+	
+		<!-- <div id="projectLogo">
+			<img src="@{projectLogo(object._key())}" />
+		</div> -->
+	<div id="edit-tabs">
+	    <ul>
+		  <li><a href="#basic-info">Basic Info</a></li>
+		  <li><a href="#edit-relations">Edit Relations</a></li>		
+	    </ul>
+	  <div id="basic-info" class="ui-widget">
+	    <table><tbody>
+	    
+	
+	      <tr>
+	        #{core.element name:"name", value:(object? object['name'] : null) /}
+	        #{core.element name:"description", value:(object? object['description'] : null) /}
+	      </tr><tr>
+	        #{core.element name:"manager", value:(object? object['startDate'] : null) /}
+	        #{core.element name:"ownerOrganization", value:(object.ownerOrganization? object.ownerOrganization['name'] : null) /}	       
+	      </tr><tr>
+	      #{core.element name:"wipSpace", value:(object.wipSpace? object.wipSpace['name'] : null) /}
+	        #{core.element name:"releaseSpace", value:(object.releaseSpace? object.releaseSpace['name'] : null) /}   		
+	      </tr><tr>
+	        #{core.element name:"startDate", value:(object? object['startDate'] : null) /}
+	        #{core.element name:"endDate", value:(object? object['endDate'] : null) /}	
+	      </tr><tr>
+	        #{core.element name:"project", value:(object? object['dateCreated'] : null) /}
+	        #{core.element name:"staff", value:(object.staff? object['lastUpdated'] : null) /}
+	      </tr>
+	    </tbody></table>
+	    <br/>      
+          #{sparta.tabs}
+             #{sparta.tab link:"/projects/organizations?id="+object._key(), value:"sparta.project.organizations"/}
+		     #{sparta.tab link:"/projects/projectstaffs?id="+object._key(), value:"sparta.project.staffs"/}		    										
+          #{/sparta.tabs}
+     </div>
+          
+        <div id="edit-relations">
+	      	 #{sparta.editrelation object:object, label:"Participating Organizations", name:"projorgs", geturl:"/users/organizations/listorgs"}
+		      '@{addorgs(object._key())}'
+		     #{/sparta.editrelation}
+	    
+	         #{sparta.editrelation object:object, label:"Staffs", name:"projectstaffs", geturl:"/users/staffs/liststaffs"}
+		      '@{addstaffs(object._key())}'
+		     #{/sparta.editrelation}	
+	    </div>
+    </div>
+</div>
+<script>
+$(function() {
+	$( "#edit-tabs" ).tabs();
+});
+</script>

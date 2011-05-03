@@ -1,0 +1,33 @@
+#{extends 'core/layout.html' /}
+
+<div id="coreBlank" class="${type.name} ">
+	<div class="listSort">
+	&{'core.blank.title', type.modelName}
+	</div>
+	<div class="objectForm">
+	
+	#{form action:@create(), enctype:'multipart/form-data'}
+	<div class="ui-widget">
+	#{sparta.form }
+		#{sparta.field name:'name'/}
+		#{sparta.field name:'logo'/}
+		#{sparta.field name:'description'/}
+		#{sparta.field name:'wipSpace'/}
+		#{sparta.field name:'releaseSpace'/}
+		#{sparta.field name:'manager'/}
+		#{sparta.field name:'endDate'/}
+		#{sparta.field name:'startDate'/}
+		#{sparta.field name:'ownerOrganization'/}
+		#{sparta.field name:'staff'/}
+						
+		#{/sparta.form}		
+		</div>
+		<p class="coreButtons button">
+			<input type="submit" name="_save" value="&{'core.save', type.modelName}" />
+			<input type="submit" name="_saveAndContinue" value="&{'core.saveAndContinue', type.modelName}" />
+			<input type="submit" name="_saveAndAddAnother" value="&{'core.saveAndAddAnother', type.modelName}" />
+		</p>
+	#{/form}
+	</div>
+
+</div>

@@ -1,0 +1,9 @@
+#{form action:@list().remove('page'), method:'GET'}
+    #{if _fields}
+        <input type="hidden" name="searchFields" value="${_fields.toString().substring(1, _fields.toString().length()-1).replace(',', '')}" />
+    #{/if}
+    <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input id="search-button" type="submit" value="&{'core.search'}" />
+    #{if _caller.params.search}
+        (<a href="@{list()}">&{'core.list.totalSize', _caller.totalCount}</a>)
+    #{/if}
+#{/form}

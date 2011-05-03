@@ -1,0 +1,70 @@
+#{extends 'core/layout.html' /}
+
+<div id="coreBlank" class="${type.name} ">
+	<div class="listSort">
+	<h3>&{'core.blank.title', type.modelName}</h3>
+	</div>
+	<div class="objectForm">
+	
+	#{form action:@create(), enctype:'multipart/form-data'}
+	<div class="ui-widget">
+	  
+	  #{sparta.form }
+		<table>
+		<tbody>
+		<tr><td>
+		#{sparta.field name:'name'/}
+		</td><td>
+		#{sparta.field name:'urgency'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'originator'/}
+		</td><td>
+		#{sparta.field name:'analyst'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'description'/}
+		</td><td>
+		#{sparta.field name:'solution'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'evaluator'/}
+		</td><td>
+		#{sparta.field name:'manager'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'verifier'/}
+		</td><td>
+		#{sparta.field name:'problemStatus'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'reason'/}
+		</td><td>
+		#{sparta.field name:'acceptConditions'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'customer'/}
+		</td><td>	
+		#{sparta.field name:'project'/}	
+		</td></tr>
+		
+		</tbody>
+		</table>
+   	    #{/sparta.form}  
+   	    
+		</div>
+		<p class="coreButtons button">
+			<input type="submit" name="_save" value="&{'core.save', type.modelName}" />
+			<input type="submit" name="_saveAndContinue" value="&{'core.saveAndContinue', type.modelName}" />
+			<input type="submit" name="_saveAndAddAnother" value="&{'core.saveAndAddAnother', type.modelName}" />
+		</p>
+	#{/form}
+	</div>
+
+</div>

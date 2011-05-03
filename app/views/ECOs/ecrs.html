@@ -1,0 +1,17 @@
+<div id="relation">
+		#{if objects.size()}
+		<h2 id="coreListTitle">&{'core.list.title', 'ECRs'}</h2>
+	<div id="coreListTable">
+		#{core.table fields:['name', 'number', 'project']}
+            #{core.custom 'name'}
+               <a href="@{ECRs.show(object.id)}">
+               ${object.name.length() > 50 ? object.name[0..50] + '…' : object.name}
+               </a>
+            #{/core.custom}
+        #{/core.table}
+	</div>
+    #{/if}
+    #{else}
+    Nothing found
+    #{/else}	
+</div>

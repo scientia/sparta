@@ -1,0 +1,131 @@
+_Menu(root):
+    name: Home
+    url: '@{Dashboard.index()}'
+
+_Menu(administration):
+    name: Administration
+    url: '#'
+   
+_Menu(product_management):
+    name: Product Management
+    url: '#'
+
+_Menu(document_management):
+    name: Document Management
+    url: '#'
+    
+_Menu(change_management):
+    name: Change Management
+    url: ''
+
+_Menu(users):
+    name: Users
+    url: '@{Users.list()}'
+    title: Users
+    parent: administration
+
+_Menu(roles):
+    name: Roles
+    url: '@{Roles.list()}'
+    title: Roles
+    parent: administration
+
+_Menu(organization):
+    name: Organizations
+    url: '@{Organizations.list()}'
+    title: Organizations
+    parent: administration
+ 
+_Menu(projects):
+    name: Projects
+    url: '@{Projects.list()}'
+    title: Projects
+    parent: administration
+
+_Menu(staffs):
+    name: Staff
+    url: '@{Staffs.list()}'
+    title: Staffs
+    parent: administration
+    
+_Menu(spaces):
+    name: Spaces
+    url: '@{Spaces.list()}'
+    title: Spaces
+    parent: administration
+    
+_Menu(contexts):
+    name: Contexts
+    url: '@{ViewContexts.list()}'
+    title: Contexts
+    parent: administration
+                        
+_Menu(parts):
+    name: Parts
+    url: '@{Parts.list()}'
+    title: Parts
+    parent: product_management
+
+_Menu(customers):
+    name: Customers
+    url: '@{Customers.list()}'
+    title: Customers
+    parent: product_management
+
+_Menu(plants):
+    name: Plants
+    url: '@{Plants.list()}'
+    title: Plants
+    parent: product_management
+    
+_Menu(suppliers):
+    name: Suppliers
+    url: '@{Suppliers.list()}'
+    title: Suppliers
+    parent: product_management
+    
+_Menu(design):
+    name: Design Document
+    url: '@{DesignDocuments.list()}'
+    title: Design Document
+    parent: document_management
+
+_Menu(manufacturing):
+    name: Manufacturing Document
+    url: '@{MfgDocuments.list()}'
+    title: Manufacturing Document
+    parent: document_management
+    
+_Menu(engineering):
+    name: Engineering Document
+    url: '@{EnggDocuments.list()}'
+    title: Engineering Document
+    parent: document_management
+    
+_Menu(support):
+    name: Support Document
+    url: '@{SupportDocuments.list()}'
+    title: support Document
+    parent: document_management
+
+_Menu(specification):
+    name: Specification Document
+    url: '@{SpecDocuments.list()}'
+    title: Specification Document
+    parent: document_management
+
+_Menu(ecr):
+    name: ECR
+    url: '@{ECRs.list()}'
+    title: ECR
+    parent: change_management
+    
+_Menu(eco):
+    name: ECO
+    url: '@{ECOs.list()}'
+    title: ECO
+    parent: change_management
+
+_Menu(logout):
+    name: logout
+    url: /logout

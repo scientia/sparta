@@ -1,0 +1,116 @@
+#{extends 'core/layout.html' /}
+
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
+<script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
+<script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+
+<div id="coreShow " class="${type.name}">
+    <div class="listSort">
+	   &nbsp&nbsp &{'part.show.title', type.modelName} : ${object.identifier.number}-${object.identifier.tab}-${object.revision}-${object.iteration}
+	</div>
+	<div class="listButtons">
+	   #{sparta.toolbar}
+	      #{sparta.delete id:object._key(), name:type.modelName /}
+	      #{sparta.edit id:object._key(), name:type.modelName /}
+	   #{/sparta.toolbar}
+	</div>
+	<div id="edit-tabs">
+	    <ul>
+		  <li><a href="#basic-info">Basic Info</a></li>
+		  <li><a href="#edit-relations">Edit Relations</a></li>		
+	    </ul>
+	  <div id="basic-info" class="ui-widget">
+	    <table><tbody>
+    	    <tr>
+	           #{core.element name:"name", value:(object? object['name'] : null) /}
+	           #{core.element name:"number", value:(object.identifier? object.identifier['number'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"tab", value:(object.identifier? object.identifier['tab'] : null) /}
+	           #{core.element name:"servicePart", value:(object.identifier? object.identifier['servicePart'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"revision", value:(object? object['revision'] : null) /}
+	           #{core.element name:"iteration", value:(object? object['iteration'] : null) /}
+           	</tr><tr>
+	           #{core.element name:"description", value:(object? object['description'] : null) /}
+	           #{core.element name:"project", value:(object.project? object.project['name'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"finish", value:(object? object['finish'] : null) /}
+	           #{core.element name:"material", value:(object? object['material'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"makeOrBuy", value:(object? object['makeOrBuy'] : null) /}
+	           #{core.element name:"releaseState", value:(object? object['releaseState'] : null) /}
+	        </tr><tr>	           
+	           #{core.element name:"clone", value:(object? object['clone'] : null) /}
+	           #{core.element name:"frozen", value:(object? object['frozen'] : null) /}
+	        </tr><tr>	   	     
+	           #{core.element name:"clonedBy", value:(object? object['clonedBy'] : null) /}
+	           #{core.element name:"revisedBy", value:(object.revisedBy? object.revisedBy : null) /}
+	        </tr><tr>
+	           #{core.element name:"updatedBy", value:(object? object['updatedBy'] : null) /}
+	           #{core.element name:"createdBy", value:(object? object['createdBy'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"dateCreated", value:(object? object['dateCreated'] : null) /}
+	           #{core.element name:"lastUpdated", value:(object? object['lastUpdated'] : null) /}
+	        </tr><tr>
+	    </tbody></table>
+	    <br/>
+   
+      
+          #{sparta.tabs}
+             #{sparta.tab link:"/parts/ecos?id="+object._key(), value:"sparta.ecos"/}
+		     #{sparta.tab link:"/parts/ecrs?id="+object._key(), value:"sparta.ecrs"/}
+		     #{sparta.tab link:"/parts/usedon?id="+object._key(), value:"sparta.usedon"/}					
+		     #{sparta.tab link:"/parts/uses?id="+object._key(), value:"sparta.partlist"/}
+		     #{sparta.tab link:"/users/parts/documents?id="+object._key(), value:"sparta.documents"/}
+		     #{sparta.tab link:"/parts/customers?id="+object._key(), value:"sparta.customers"/}
+		     #{sparta.tab link:"/parts/plants?id="+object._key(), value:"sparta.plants"/}
+		     #{sparta.tab link:"/parts/suppliers?id="+object._key(), value:"sparta.suppliers"/}
+		     #{sparta.tab link:"/parts/files?id="+object._key(), value:"sparta.files"/}											
+          #{/sparta.tabs}
+          </div>
+          
+        <div id="edit-relations">
+	        #{sparta.editrelation object:object, label:"Parts", name:"used", geturl:"/users/parts/listparts"}
+		    '@{addparts(object._key())}'
+		    #{/sparta.editrelation}
+         
+		    #{sparta.editrelation object:object, label:"ECOs", name:"partecos", geturl:"/users/parts/listparts"}
+		    '@{addparts(object._key())}'
+		    #{/sparta.editrelation}
+		
+		    #{sparta.editrelation object:object, label:"ECNs", name:"partecns", geturl:"/users/parts/listparts"}
+		    '@{addparts(object._key())}'
+		    #{/sparta.editrelation}
+		
+		    #{sparta.editrelation object:object, label:"Documents", name:"partdocs", geturl:"/users/documents/listdocs"}
+		    '@{adddocuments(object._key())}'
+		    #{/sparta.editrelation}
+		 
+		    #{sparta.editrelation object:object, label:"Customer", name:"partcustomers", geturl:"/users/customers/listcustomers"}
+		    '@{addcustomers(object._key())}'
+		    #{/sparta.editrelation}   
+        
+            #{sparta.editrelation object:object, label:"Plants", name:"partplants", geturl:"/users/plants/listplants" }
+		    '@{addplants(object._key())}'
+		    #{/sparta.editrelation}
+		
+            #{sparta.editrelation object:object, label:"Suppliers", name:"partsuppliers", geturl:"/users/suppliers/listsuppliers" }
+		    '@{addsuppliers(object._key())}'
+		    #{/sparta.editrelation}
+			
+			#{if object.project}
+		    #{sparta.fileupload space:object.project.wipSpace, posturl:'/dashboard/dump', uploadurl:'/dashboard/upload'/}
+		    #{/if}
+		    #{else}
+		    Update the project to upload files.
+		    #{/else}
+		    		
+	    </div>
+    </div>
+</div>
+<script>
+$(function() {
+	$( "#edit-tabs" ).tabs();
+});
+</script>

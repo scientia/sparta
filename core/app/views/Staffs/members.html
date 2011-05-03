@@ -1,0 +1,18 @@
+<div id="relation">
+		#{if objects.size()}
+		<div class="listSort">		
+		</div>
+	   <div id="coreListTable">
+		#{core.table fields:['username','dateCreated', 'lastUpdated']}
+            #{core.custom 'username'}
+               <a href="@{Users.show(object.id)}">
+               ${object.username.length() > 50 ? object.username[0..50] + '…' : object.username}
+               </a>
+            #{/core.custom}
+        #{/core.table}
+	</div>
+
+        
+    #{/if}	
+		
+</div>
