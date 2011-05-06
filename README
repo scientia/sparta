@@ -16,7 +16,7 @@ Quick Installation.
    1. Download play framework, install it as per the install instrructions.
    2. Download the code from googlecode  or github      
        https://github.com/downloads/scientia/sparta/sparta-0.1.0-pre-beta.zip
-       http://code.google.com/p/sparta/downloads/
+       http://code.google.com/p/oplm/downloads/
    3. Unzip on your local drive.
    4. Assuming you have installed the play framework and added the bin directory to the PATH type-
       % play test sparta 
