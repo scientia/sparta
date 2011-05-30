@@ -5,9 +5,8 @@ package models;
 public class SupportDocumentVersion extends DocumentVersion {
 	
 
-	public SupportDocumentVersion(String number, String name) {
-		super(number, name);
-		// TODO Auto-generated constructor stub
+	public SupportDocumentVersion(String name) {
+		super(name);		
 	}
 
 	/**

@@ -8,8 +8,8 @@ package models;
 @javax.persistence.DiscriminatorValue(value="Engineering")
 public class EngineeringDocumentVersion extends DocumentVersion {
 
-	public EngineeringDocumentVersion(String number, String name) {
-		super(number, name);
+	public EngineeringDocumentVersion(String name) {
+		super( name);
 	}
 	
 	public String toString(){

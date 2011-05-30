@@ -5,10 +5,12 @@ import java.util.Date;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 
 
 /**
@@ -19,18 +21,23 @@ import play.data.validation.Required;
  *
  */
 @MappedSuperclass
-public abstract class VersionModel extends AuthoredTemporalModel{
+public abstract class VersionModel extends ItemModel{
 
 	
 	public Integer iteration = 1;
 	
 	public Integer revision = 0;
 	
-	public Boolean clone = false;
+	public Boolean cloned = false;
 	
     @ManyToOne
 	public User revisedBy;
 	
     @ManyToOne
 	public User clonedBy;
+    
+    public abstract  Integer getNextIteration();
+    
+    public abstract Integer getNextRevision();
+    
 }

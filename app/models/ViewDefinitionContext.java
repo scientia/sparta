@@ -2,10 +2,15 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 
+@Table(uniqueConstraints={
+		@UniqueConstraint(columnNames={"name"})
+		})
 @Entity
 public class ViewDefinitionContext extends TemporalModel{
 	

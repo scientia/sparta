@@ -1,6 +1,7 @@
 package models;
 
 public enum YesNoType {
+	None("None"),
 	Yes("Yes"),
 	No("No");
 	

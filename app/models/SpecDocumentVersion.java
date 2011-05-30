@@ -4,8 +4,8 @@ package models;
 @javax.persistence.DiscriminatorValue(value="Specification")
 public class SpecDocumentVersion extends DocumentVersion{
 
-	public SpecDocumentVersion(String number, String name) {
-		super(number, name);
+	public SpecDocumentVersion(String name) {
+		super(name);
 	}
 
 }

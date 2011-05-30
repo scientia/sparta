@@ -1,5 +1,6 @@
 package models;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,11 +8,19 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.apache.commons.beanutils.PropertyUtils;
+
+import models.number.PartNumber;
+
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.data.validation.Valid;
+import play.db.jpa.GenericModel;
+import play.db.jpa.JPA;
+//import play.modules.elasticsearch.annotations.ElasticSearchable;
 
 
+//@ElasticSearchable
 @Table(uniqueConstraints={
 		@UniqueConstraint(name="productversionuq", columnNames={"identifier_id", "revision", "iteration"})		
 })
@@ -23,18 +32,16 @@ public class PartVersion extends ProductVersion{
 	@Transient
 	private static String BY_USES_RELATION = "byUses";
 	
+	@Transient
+	private static String[] cloneProps = {"name", "description", "project", "frozen", 
+		                                  "cloned", "unitValue", "material", "finish", 
+		                                  "location", "releaseState", "makeOrBuy", "identifier" };
 	public String unitValue;
 	public String material;
 	public String finish;	
 	public String location;
 	
-	public ReleaseState releaseState;
-	
-	
-	@ManyToOne
-	//@Required	
-	@Valid public Space space;
-	
+	public String releaseState;
 	
 	public Boolean makeOrBuy = false;
 
@@ -50,12 +57,14 @@ public class PartVersion extends ProductVersion{
 		this.name = name;
 		this.identifier = identifier;
 	}
+	
 	public PartVersion() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	public String getDisplayName(){
-		StringBuffer sf = new StringBuffer();
-		sf.append("S");
+		StringBuffer sf = new StringBuffer();		
 		sf.append(this.identifier.number);
 		sf.append("-");
 		sf.append(this.identifier.tab);
@@ -63,31 +72,77 @@ public class PartVersion extends ProductVersion{
 		sf.append(this.revision);
 		sf.append(",");
 		sf.append(this.iteration);
-		return sf.toString();
-		//return name+"-"+this.identifier.tab+"-"+this.revision.toString()+"-"+this.iteration.toString();
+		return sf.toString();		
 	}
 	
 	public String toString(){
 		return name;
 	}
-
-	/*public Set<Plant> getPlants(){
-		return identifier.plants;
-	}*/
 	
+	@PrePersist
+	public void beforeCreate(){
+		/**
+		 * Do we need to do this in separate transaction
+		 */
+		if(this.identifier.number == null){
+		    String number = PartNumber.getPartNumber();
+		    Part part = new Part(number).save();
+		    this.identifier = part;
+		}
+	}
+	
+	@Override
+	public PartVersion clone() {
+		PartVersion  object = new PartVersion();
+		object = (PartVersion)_clone(object);	
+		return object;
+	}
+	
+	@Override
+    public PartVersion revise(){
+		PartVersion  object = new PartVersion();
+		object = (PartVersion)_revise(object);	
+		return object;
+	}
+    
+    @Override
+	public PartVersion tab() {
+		Part tabIdentifier = this.identifier.getTabbedPart();
+		PartVersion  object = new PartVersion();
+		object = (PartVersion)_tab(object);
+		object.identifier = tabIdentifier;
+		return object;
+	}
+
+    @Override
+    public String[] getCopyProperties() {
+    	return cloneProps;
+    }
+	
+	public Integer getNextIteration(){
+		Query q = JPA.em().createQuery("select max(iteration) from PartVersion where identifier=? and revision=?" );
+		q.setParameter(1, this.identifier);
+		q.setParameter(2, this.revision);
+		return (Integer)q.getSingleResult() + 1;	
+	}
+	
+	public Integer getNextRevision(){
+		Query q = JPA.em().createQuery("select max(revision) from PartVersion where identifier=?" );
+		q.setParameter(1, this.identifier);		
+		return (Integer)q.getSingleResult() + 1;	
+	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public List<PartVersion> getUsesParts(){
+	public List<PartStructure> getUsesParts(){
 		List<PartStructure> structures = PartStructure.find("byUsedOn", this).fetch();
 		List<PartVersion> parts = new ArrayList<PartVersion>();
 		for(PartStructure struct: structures){
 			parts.add(struct.uses);
-		}
-			
-		return parts;
+		}	
+		return structures;
 	}
 	
 	public List<PartVersion> getUsedOnParts(){
@@ -95,20 +150,17 @@ public class PartVersion extends ProductVersion{
 		List<PartVersion> parts = new ArrayList<PartVersion>();
 		for(PartStructure struct: structures){
 			parts.add(struct.usedOn);
-		}
-		
+		}		
 		return parts;
 	}
 	
-	public PartStructure addParts(PartVersion child){
-		return new PartStructure(this, child).save();
-	}
 	
 	public void addDocument(DocumentVersion document){
 		new PartDocument(document, this);
 	}
-	public void addPart(PartVersion part) {
-		new PartStructure(this, part).save();		
+	
+	public void addPart(PartVersion child) {
+		new PartStructure(this, child).save();		
 	}
 	
 	public List<Customer> getCustomers(){
@@ -151,7 +203,7 @@ public class PartVersion extends ProductVersion{
 	}
 	
 	public List<DocumentVersion> getDocuments() {
-		List<PartDocument> partdocuments = PartDocument.find("byPartDocument", this).fetch();
+		List<PartDocument> partdocuments = PartDocument.find("byPartVersion", this).fetch();
 		List<DocumentVersion> documents = new ArrayList<DocumentVersion>();
 		for(PartDocument partdoc: partdocuments){
 			documents.add(partdoc.documentVersion);
@@ -161,14 +213,13 @@ public class PartVersion extends ProductVersion{
 	
 	public void addECO(ECO eco) {
 		new EChangeAffectedPart(eco, this).save();
-		
 	}
 	
 	public List<ECO> getECOs() {
 		List<EChangeAffectedPart> affectedparts = EChangeAffectedPart.find("byPartVersion", this).fetch();
 		List<ECO> ecos = new ArrayList<ECO>();
 		for(EChangeAffectedPart affpartrln: affectedparts){
-			EngineeringChange change = affpartrln.change ;
+			Change change = affpartrln.change ;
 			if( change instanceof ECO){
 			    ecos.add((ECO)affpartrln.change);
 			}
@@ -176,13 +227,13 @@ public class PartVersion extends ProductVersion{
 		return ecos;
 	}
 	
-	public List<ECO> getECRs() {
+	public List<ECR> getECRs() {
 		List<EChangeAffectedPart> affectedparts = EChangeAffectedPart.find("byPartVersion", this).fetch();
-		List<ECO> ecos = new ArrayList<ECO>();
+		List<ECR> ecos = new ArrayList<ECR>();
 		for(EChangeAffectedPart affpartrln: affectedparts){
-			EngineeringChange change = affpartrln.change ;
+			Change change = affpartrln.change ;
 			if( change instanceof ECR){
-			    ecos.add((ECO)affpartrln.change);
+			    ecos.add((ECR)affpartrln.change);
 			}
 		}	
 		return ecos;
@@ -190,6 +241,5 @@ public class PartVersion extends ProductVersion{
 	
 	public void addECR(ECR ecr) {
 		new EChangeAffectedPart(ecr, this).save();
-		
 	}
 }

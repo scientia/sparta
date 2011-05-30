@@ -4,8 +4,8 @@ package models;
 @javax.persistence.DiscriminatorValue(value="Design")
 public class DesignDocumentVersion extends DocumentVersion{
 
-	public DesignDocumentVersion(String number, String name) {
-		super(number, name);
+	public DesignDocumentVersion(String name) {
+		super(name);
 	}
 
 	public String toString(){

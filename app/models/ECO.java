@@ -8,18 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+
+import models.number.DocumentNumber;
+import models.number.ECONumber;
 
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.data.validation.Valid;
+//import play.modules.elasticsearch.annotations.ElasticSearchable;
 
+//@ElasticSearchable
 @Entity
 public class ECO extends EngineeringChange{
 	
-	public boolean documentOnly;
-	public boolean interchangeable;
-	public boolean noninterchangeable;
+	/**
+	 * Change class describes whether the change is 
+	 * Document Only, Interchangeable, Non Interfhangeable, Mixed
+	 */
+	public String changeClass;
+	
 	
 	/**
 	 * The point in the manufacturing process at which the change will be made effective
@@ -86,6 +95,11 @@ public class ECO extends EngineeringChange{
 	public Date mrpUpdated;
 	public Date closedDate;
 
+	@PrePersist
+	public void beforeCreate(){
+		String number = ECONumber.getECONumber();		
+		this.number = number;
+	}
 	public void addECR(ECR ecr) {
 		new EcoEcr(this, ecr).save();	
 	}

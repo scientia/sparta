@@ -4,8 +4,8 @@ package models;
 @javax.persistence.DiscriminatorValue(value="Manufacturing")
 public class MfgDocumentVersion extends DocumentVersion {
 
-	public MfgDocumentVersion(String number, String name) {
-		super(number, name);
+	public MfgDocumentVersion(String name) {
+		super( name);
 	}
 
 	public String toString(){

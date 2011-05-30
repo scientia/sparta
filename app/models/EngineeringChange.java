@@ -17,12 +17,13 @@ import javax.persistence.MappedSuperclass;
  * of the concrete entity at the bottom. The broader the hierarchy the more joins 
  * it will take to query across an entity superclass
  * 
- * Keep the hirarchy as flat as possible. avoid query calls at the super class.
+ * Keep the hierarchy as flat as possible. avoid query calls at the super class.
  * @author snehal
  *
  */
 @javax.persistence.Entity
 @javax.persistence.Inheritance(strategy=InheritanceType.JOINED)
+//@MappedSuperclass
 public abstract class EngineeringChange extends Change{
 
 	
@@ -76,5 +77,14 @@ public abstract class EngineeringChange extends Change{
 			rfrncedddocs.add(rfrncreln.documentVersion);
 		}		
 		return rfrncedddocs;
+	}
+	
+	public List<Task> getTasks(){
+		List<EngChangeTask> engchangetasks =  EngChangeTask.find("byChange", this).fetch();
+		List<Task> tasks = new ArrayList<Task>();
+		for(EngChangeTask engchangetask: engchangetasks){
+			tasks.add(engchangetask.task);
+		}		
+		return tasks;
 	}
 }

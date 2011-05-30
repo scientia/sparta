@@ -10,13 +10,25 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+
+import models.number.ECONumber;
+import models.number.ECRNumber;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
+//import play.modules.elasticsearch.annotations.ElasticSearchable;
 
+//@ElasticSearchable
 @Entity
 public class ECR extends EngineeringChange {
 
+	
+	@PrePersist
+	public void beforeCreate(){
+		String number = ECRNumber.getECRNumber();		
+		this.number = number;
+	}
 	
 	public void addECO(ECO ecr) {
 		new EcoEcr(ecr, this).save();	
@@ -30,4 +42,5 @@ public class ECR extends EngineeringChange {
 		}	
 		return ecos;
 	}
+	
 }

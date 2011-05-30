@@ -1,5 +1,6 @@
 package models;
 
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,8 +16,9 @@ import play.db.jpa.JPA;
 		@UniqueConstraint(name="partuq", columnNames={"number", "tab"})
 })
 @Entity
-public class Part extends AuthoredTemporalModel{
+public class Part extends Identifier{
 	
+	private static String[] cloneProps = {"number", "servicePart", "uom"};
 	
 	/*@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.SEQUENCE, generator = "SmartIdSequenceGenerator")
 	@org.hibernate.annotations.GenericGenerator(name = "SmartIdSequenceGenerator",strategy = "util.SmartIdSequenceGenerator",
@@ -27,14 +29,12 @@ public class Part extends AuthoredTemporalModel{
     @SequenceGenerator(name="PartNumber_Gen", sequenceName="PartNumber-Seq")
     @GeneratedValue(generator="PartNumber_Gen")
     public Long partnumber;*/
-    
-    @Required
-	public String number;
-    
-    @Required
-	public String tab = "00";
 	
-	public Boolean servicePart;
+	public Boolean servicePart = false;
+	
+	@ManyToOne
+	public UnitOfMeasure uom;
+	
 	
 	/*@javax.persistence.OneToMany(mappedBy = "identifier", cascade=CascadeType.PERSIST)
 	public java.util.Set<PartVersion> revisionsOfPart = new java.util.HashSet<PartVersion>();
@@ -49,27 +49,49 @@ public class Part extends AuthoredTemporalModel{
 	public java.util.Set<Plant> plants = new HashSet<Plant>();*/
 	
 	public Part(String number, String tab, Boolean servicePart){
-		this.number = number;
-		this.tab = tab;
+		super(number, tab);		
 		this.servicePart = servicePart;		
 	}
 	
 	public Part(String number){
-		this.number=number;
+		super(number);
 	}
 	
 	public Part(){
 		
 	}
 	public String toString(){
-		return number;
+		return number+","+tab;
+	}
+
+	@Override
+	public String getNextTab() {
+		Long count = Part.count("number=?", this.number);
+		//q.setParameter(1, this.number);		
+		//int tabcount = (Integer)q.getSingleResult();
+		DecimalFormat df = new DecimalFormat("00");
+		return df.format(count);
+	}
+
+	public Part getTabbedPart() {
+		Part tabbedId = new Part();
+		this._copy(tabbedId);
+		tabbedId.tab = getNextTab();
+		tabbedId.save();
+		return tabbedId;
 	}
 	
+	@Override
+    public String[] getCopyProperties() {
+    	return cloneProps;
+    }
 	/*public List<PartVersion> getRevisionsOfPart(){
 		return null;
 	}*/
 	
 	/*public static String getNextNumber(){
 		Query query = JPA.em().createQuery("select max(number) from Part");
+		Integer a = (Integer)query.getSingleResult();
+		return a.toString();
 	}*/
 }
