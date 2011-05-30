@@ -1,15 +1,21 @@
+html{
+border-top:2px solid #67A927;
+}
 body {
-	background:#FFFFFF none repeat scroll 0 0;
+	background-color: #ddd;
+	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
+	background-image: linear-gradient(top, #aaa, #ddd);
     color:#333333;
     direction:ltr;
     font-family:"lucida grande",tahoma,verdana,arial,sans-serif;   
     margin:0;
-    overflow-y:scroll;
     padding:0;
     text-align:left;
     unicode-bidi:embed;
     font-size:0.65em;
 }
+
 
 a {
    color:#002060;
@@ -105,11 +111,11 @@ textarea{
     margin:5px 3px 0px 8px;
     padding-right: 40px;
 }
-.main-login th, td, caption {
-    padding:0px 5px 0px 0px;
+
+.login-tr td {
+	padding:0px 5px 0px 0px;
     line-height: 7px;
 }
-
 .main-login label{
 	 display: block;
 	 width:100px;
@@ -125,16 +131,26 @@ textarea{
 }
 
 #globalContainer{
-   margin:0 auto;
-   width: 1000px;
+	background: #ffffff;
+	color: #333333;
+	margin: -20px auto;
+	padding-top: 20px;
+	max-width: 960px;
+	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
+	   -moz-box-shadow: 0 0 0.3em #255b17;
+	-webkit-box-shadow: 0 0 0.3em #255b17;
+	        box-shadow: 0 0 0.3em #255b17;
    min-height: 530px;
+   z-index: -1 ;
 }
 .global-nav{
    clear:both;
    margin-left:auto;
    margin-right:auto;
    width:950px;
+   padding-left: 2px;
    margin-bottom: 5px;
+   
 }
 .global-nav .account{
 	color:#666666;
@@ -155,13 +171,12 @@ textarea{
 
 #header{
    background-color:#002060;
-   height:41px;
+   height:60px;
    left:0;
    width:100%;
    z-index:-1;
    color:#ffffff;
    clear:both;
-   margin-bottom: 5px;
 }
 #header h1{
 	 padding:8px 0px 0 0;
@@ -258,6 +273,7 @@ h2 {
    float: left;
    border:1px solid #DDDDDD;
    font-size: 110%;
+   margin-left: 3px;
 }
 .navigation-panel ul, ol{
 	padding-left: 0.5em;
@@ -287,12 +303,12 @@ h2 {
    z-index:-1;
    bottom: 0;
    background:#F8F8F8 none repeat scroll 0 0;
-    border-color:#DEDEDE;
-    border-style:solid;
-    border-width:1px 0;
-    clear:both;
-    padding:5px 10px;
-    margin-top: 10px;
+   border-color:#DEDEDE;
+   border-style:solid;
+   border-width:1px 0;
+   clear:both;
+   padding:15px 10px;
+   margin-top: 15px 15px;
 }
 
 .span-25{
@@ -363,14 +379,59 @@ h2 {
  display:inline;
 }
 
+.list-item-head {	
+	cursor: pointer;
+	position: relative;
+}
+
 #listcontent .delete_icon {
 	float:right;
    padding-left:5px;
+}
+.list-item-span {
+	width: 90px;
+	float:right;
+	text-align: left;
 }
 
 .mRelField label{
 	width: 20%;
 }
+#panel {
+	height: auto;
+	display: none;
+}
+.slide {
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid #EEEEEE;
+}
+.btn-slide {
+	background: url(../images/white-arrow.gif) no-repeat right -50px;
+	text-align: center;
+	width: 80px;
+	height: 21px;
+	padding: 10px 10px 0 0;
+	margin: 0 auto;
+	display: block;
+	font: bold 120%/100% Arial, Helvetica, sans-serif;
+	color: #fff;
+	text-decoration: none;
+}
+.more-active {
+	background-position: right 12px;
+}
+a:focus {
+	outline: none;
+}
+
+#coreListTable thead th  {
+	background:#E6E6E6 url(../images/grid-header.png) repeat-x scroll 50% 50%;
+    border:1px solid #D6D6D6;
+    border-width: 1px 1px 1px 0px;
+    color:#00000;
+}
+
 .fg-button {  margin:0px 0px 0px 20px; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
 .fg-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
 a.fg-button { float:left;  }
