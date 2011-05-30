@@ -6,6 +6,10 @@ _Menu(administration):
     name: Administration
     url: '#'
    
+_Menu(project_management):
+    name: Project Management
+    url: '#'
+    
 _Menu(product_management):
     name: Product Management
     url: '#'
@@ -35,12 +39,6 @@ _Menu(organization):
     url: '@{Organizations.list()}'
     title: Organizations
     parent: administration
- 
-_Menu(projects):
-    name: Projects
-    url: '@{Projects.list()}'
-    title: Projects
-    parent: administration
 
 _Menu(staffs):
     name: Staff
@@ -59,7 +57,37 @@ _Menu(contexts):
     url: '@{ViewContexts.list()}'
     title: Contexts
     parent: administration
-                        
+
+_Menu(lookups):
+    name: Lookups
+    url: '@{Lookups.list()}'
+    title: Lookups
+    parent: administration
+
+_Menu(lookupvalues):
+    name: Lookup Values
+    url: '@{LookupValues.list()}'
+    title: Lookup Value
+    parent: administration
+
+_Menu(uoms):
+    name: Unit Of Measure
+    url: '@{UOMs.list()}'
+    title: Unit Of Measure
+    parent: administration
+
+_Menu(projects):
+    name: Projects
+    url: '@{Projects.list()}'
+    title: Projects
+    parent: project_management
+
+_Menu(tasks):
+    name: Tasks
+    url: '@{Tasks.list()}'
+    title: Tasks
+    parent: project_management
+                    
 _Menu(parts):
     name: Parts
     url: '@{Parts.list()}'

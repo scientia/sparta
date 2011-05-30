@@ -37,14 +37,6 @@ Role(engineeringmgr):
 
 Role(datamanager):
      name:          Data Manager
-               
-Project(default):
-    name:          Default
-    description:   Default Project
-
-Organization(Default):
-    name:          Default
-    description:   Default Organization
 
 Space(Wip Space):
     name:          Default WIP Space
@@ -52,4 +44,12 @@ Space(Wip Space):
 
 Space(Release Space):
     name:          Default Release Space
-    mappedDir:      data/released      
+    mappedDir:      data/released
+            
+Project(default):
+    name:          Default
+    description:   Default Project
+
+Organization(Default):
+    name:          Default
+    description:   Default Organization

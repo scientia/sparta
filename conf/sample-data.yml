@@ -50,3 +50,10 @@ Staff(staff2):
 
 Staff(staff3):
     name:           Staff3
+
+ViewDefinitionContext(Default):
+    name:           Default
+    applicationDomain:  0
+    releaseState:     0
+    configuration:    0
+    

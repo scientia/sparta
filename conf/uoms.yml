@@ -1,0 +1,326 @@
+UnitOfMeasure(Each):
+    name:  Each
+    code:  ea
+    multiplier:  1.0
+    scale:  Quantity
+    measure:  Universal
+UnitOfMeasure(Dozen):   
+     name:  Dozen
+     code:  doz
+     multiplier:   12.0
+     scale:  Quantity
+     measure:  Universal
+UnitOfMeasure(Gross): 
+     name:  Gross
+     code:  gross
+     multiplier:  144.0
+     scale:  Quantity
+     measure:  Universal
+UnitOfMeasure(Millimeters):
+     name:  Millimeters
+     code:  mm
+     multiplier:  0.1
+     scale:  Length
+     measure:  Metric
+UnitOfMeasure(Centimeters):
+     name:  Centimeters
+     code:  cm
+     multiplier:  1.0
+     scale:  Length
+     measure:  Metric
+UnitOfMeasure(Each):
+    name:  Each
+    code:  ea
+    multiplier:  1.0
+    scale:  Quantity
+    measure:  Universal
+UnitOfMeasure(Dozen):   
+     name:  Dozen
+     code:  doz
+     multiplier:   12.0
+     scale:  Quantity
+     measure:  Universal
+UnitOfMeasure(Gross): 
+     name:  Gross
+     code:  gross
+     multiplier:  144.0
+     scale:  Quantity
+     measure:  Universal
+UnitOfMeasure(Millimeters):
+     name:  Millimeters
+     code:  mm
+     multiplier:  0.1
+     scale:  Length
+     measure:  Metric
+UnitOfMeasure(Centimeters):
+     name:  Centimeters
+     code:  cm
+     multiplier:  1.0
+     scale:  Length
+     measure:  Metric
+UnitOfMeasure(Meters):
+     name:  Meters
+     code:  m
+     multiplier: 100.0
+     scale:  Length
+     measure:  Metric
+UnitOfMeasure(Kilometers):
+     name:  Kilometers 
+     code:  km
+     multiplier:  100000.0
+     scale:  Length
+     measure:  Metric
+UnitOfMeasure(Inches):     
+     name:  Inches
+     code:  in
+     multiplier:  1.0
+     scale:  Length
+     measure:  British
+UnitOfMeasure(Feet):
+     name:  Feet
+     code:  ft
+     multiplier:  12.0
+     scale:  Length
+     measure:  British
+UnitOfMeasure(Yards):
+     name:  Yards
+     code:  yd
+     multiplier:  36.0
+     scale:  Length
+     measure:  British     
+UnitOfMeasure(Miles):
+     name:  Miles
+     code:  mi
+     multiplier:  63360.0
+     scale:  Length
+     measure:  British     
+UnitOfMeasure(Square Millimeters):
+     name:  Square Millimeters
+     code:  mm2
+     multiplier:  0.01
+     scale:  Area
+     measure:  Metric
+UnitOfMeasure(Square Centimeters):
+     name:  Square Centimeters
+     code:  cm2
+     multiplier:  1.0
+     scale:  Area
+     measure:  Metric
+UnitOfMeasure(Square Meters):
+     name:  Square Meters
+     code:  m2
+     multiplier: 10000.0
+     scale:  Area
+     measure:  Metric
+UnitOfMeasure(Square Kilometers):
+     name:  Square Kilometers
+     code:  km2
+     multiplier:  10000000000.0
+     scale:  Area
+     measure:  Metric
+UnitOfMeasure(Hectares):
+     name:  Hectares
+     code:  ha
+     multiplier:  100000000.0
+     scale:  Area
+     measure:  Metric
+UnitOfMeasure(Square Inches):
+     name:  Square Inches
+     code:  in2
+     multiplier:  1.0
+     scale:  Area
+     measure:  British
+UnitOfMeasure(Square Feet):
+     name:  Square Feet
+     code:  ft2
+     multiplier:  144.0
+     scale:  Area
+     measure:  British
+UnitOfMeasure(Square Yards):
+     name:  Square Yards
+     code:  yd2
+     multiplier:  1296.0
+     scale:  Area
+     measure:  British
+UnitOfMeasure(Square Miles):
+     name:  Square Miles
+     code:  mi2
+     multiplier:  4014489600.0
+     scale:  Area
+     measure:  British
+UnitOfMeasure(Acres):
+     name:  Acres
+     code:  ac
+     multiplier:  6272640.0
+     scale:  Area
+     measure:  British
+UnitOfMeasure(Cubic Centimeters):
+     name:  Cubic Centimeters
+     code:  cc
+     multiplier:  1.0
+     scale:  Volume
+     measure:  Metric
+UnitOfMeasure(Centiliters):
+     name:  Centiliters
+     code:  cl
+     multiplier:  10.0
+     scale:  Volume
+     measure:  Metric
+UnitOfMeasure(Cubic Meters):
+     name:  Cubic Meters
+     code:  m3
+     multiplier:  1000000.0
+     scale:  Volume
+     measure:  Metric
+
+UnitOfMeasure(Hectoliters):
+     name:  Hectoliters
+     code:  hl
+     multiplier:  100000.0
+     scale:  Volume
+     measure:  Metric
+UnitOfMeasure(Liters):
+     name:  Liters
+     code:  L
+     multiplier:  1000.0
+     scale:  Volume
+     measure:  Metric
+UnitOfMeasure(Milliliters):     
+     name:  Milliliters
+     code:  ml
+     multiplier:  1.0
+     scale:  Volume
+     measure:  Metric
+UnitOfMeasure(Cubic Inches):
+     name:  Cubic Inches
+     code: in3
+     multiplier:  1.0
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Cubic Feet):
+     name:  Cubic Feet
+     code:  ft3
+     multiplier:  1728.0
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Cubic Yards):
+     name:  Cubic Yards
+     code:  yd3
+     multiplier:  46656.0
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Fluid Ounce):
+     name:  Fluid Ounce (Imperial)
+     code:  fl.oz(Imp)
+     multiplier:  1.7338715625
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Cubic Pint):
+     name:  Pint (Imperial)
+     code:  pt(Imp)
+     multiplier:  34.67743125
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Quart):
+     name:  Quart (Imperial)
+     code:  qt(Imp)
+     multiplier:  69.3548625
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Gallon):
+     name:  Gallon (Imperial)
+     code:  gal(Imp)
+     multiplier:  277.41945
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Fluid Ounce US):
+     name:  Fluid Ounce (US)
+     code:  fl.oz(US)
+     multiplier:  1.8046875
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Pint US):
+     name:  Pint (US)
+     code:  pt(US)
+     multiplier:  28.875
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Quart US):
+     name:  Quart (US)
+     code:  qt(US)
+     multiplier:  57.75
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Gallon US):
+     name:  Gallon (US)
+     code:  gal(US)
+     multiplier:  231.0
+     scale:  Volume
+     measure:  British
+UnitOfMeasure(Milligrams):
+     name:  Milligrams
+     code:  mg
+     multiplier:  0.001
+     scale:  Weight
+     measure:  Metric
+
+UnitOfMeasure(Grams):
+     name:  Grams
+     code:  g
+     multiplier:  1.0
+     scale:  Weight
+     measure: Metric
+UnitOfMeasure(Kilograms):
+     name:  Kilograms
+     code:  kg
+     multiplier:  1000.0
+     scale:  Weight
+     measure:  Metric
+
+UnitOfMeasure(Tonnes):
+     name:  Tonnes
+     code:  t
+     multiplier:  1000000.0
+     scale:  Weight
+     measure:  Metric
+
+UnitOfMeasure(Ounces):
+     name:  Ounces
+     code:  oz
+     multiplier:  1.0
+     scale:  Weight
+     measure:  British
+
+UnitOfMeasure(Pounds):
+     name:  Pounds
+     code:  lb
+     multiplier:  16.0
+     scale:  Weight
+     measure:  British
+
+UnitOfMeasure(Stones):
+     name:  Stones (Imperial)
+     code:  st
+     multiplier:   224.0
+     scale:  Weight
+     measure:  British
+
+UnitOfMeasure(Hundredweights):
+     name:  Hundredweights
+     code:  cwt
+     multiplier:  1792.0
+     scale:  Weight
+     measure:  British
+UnitOfMeasure(Tons):
+     name:  Tons (Imperial Long)
+     code:  ton(Imp)
+     multiplier:  35840.0
+     scale:  Weight
+     measure:  British
+
+UnitOfMeasure(Tons US):
+     name:  Tons (US Short)
+     code:   ton(US)
+     multiplier:  32000.0
+     scale:  Weight
+     measure:  British

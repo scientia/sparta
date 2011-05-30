@@ -1,7 +1,7 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-main.title=Sparta!
+main.title=Sparta
 dateCreated=Date Created
 lastUpdated=Last Updated
 SpecDocuments=Specification Documents
@@ -9,6 +9,7 @@ MfgDocuments=Mfg Documents
 EnggDocuments=Engineering Documents
 SupportDocuments=Support Documents
 part.show.title=Part
+default.show.title = Show
 design.document.show.title=Design Document
 name=Name
 number=Number
@@ -84,9 +85,27 @@ enggSignoff=Engg. SignOff
 customer=Customer
 referencedParts=Referenced Parts
 referencedDocuments=Referenced Documents
+active=Active
+displayName=Display Name
+contactPerson=Contact Person
+sparta.lookup.values=Lookup Values
+
+sparta.show.basicinfo=Information
+sparta.show.editrelations=Edit Relations
+#--- Settings
+sparta.users.settings=Settings
+sparta.settings.oldpwd=Old Password
+sparta.settings.newpwd=New Password
+sparta.settings.verifypwd=Verify Password
+sparta.settings.viewcontext=View Context
+eco.show.title=ECO
+ecr.show.title=ECR
+
 #-- End Change Attributes
 
 PartVersion=Part
+servicePart=Service Part?
+unitOfMeasure=Unit Of Measure
 sparta.parts=Parts
 sparta.ecos=ECOs
 sparta.documents=Documents
@@ -100,7 +119,8 @@ sparta.suppliers=Suppliers
 sparta.files=Files
 sparta.part.edit.title=Edit Part : &{%s}
 sparta.relation.documents=The Documents are added to the part.
-
+sparta.partidentifier.failedcreate=Failed to create Part Identifier
+sparta.ecrs=ECRs
 sparta.change.affectedparts=Affected Parts
 sparta.change.resultedparts=Resulted Parts
 sparta.change.rfrncedparts=Referenced Parts
@@ -109,3 +129,27 @@ sparta.change.affecteddocs=Affected Documents
 sparta.change.resulteddocs=Resulted Documents
 sparta.change.ecrs=ECRs
 sparta.change.ecos=ECOs
+
+#-- Task Attributes
+requestedEndDate=Requested End Date
+actionTaken=Action Taken
+remarks=Remarks
+assignee=Assignee
+planStartDate=Plan Start Date
+planEndDate=Plan End Date
+actualStartDate=Actual Start Date
+actualEndDate=Actual End Date
+effortDriven=Effort Driven
+workflowstatus=Workflow Status
+
+#-- File attributes
+osName=OS Name
+space=Space
+sparta.space.projects=Projects
+
+#--- products
+sparta.product.unfreeze=Unfreeze
+sparta.product.freeze=Freeze
+subtype=Subtype
+cloned=Cloned?
+ 
