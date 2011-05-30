@@ -1,6 +1,9 @@
 #{extends 'core/layout.html' /}
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/apprise.min.css'}" />
 <script src="@{'/public/javascripts/apprise.min.js'}"></script>
+<script>
+
+</script>
 <div>
     <div class="listSort">
 	&{'core.list.title', type.name}
@@ -8,36 +11,19 @@
 	<div class="listButtons">
 	#{sparta.toolbar}
 	#{sparta.add name:type.modelName /}
-    #{/sparta.toolbar}
+	<div  id="activate-btn" style="display:inline; float:left;">
+    <a    href="@{bulkactivate}">&{'Activate', type.modelName}</a>
     </div>
+    <div  id="deactivate-btn" style="display:inline; float:left;">
+    <a    href="@{bulkdeactivate}">&{'Deactivate', type.modelName}</a>
+    </div>
+    #{/sparta.toolbar}
+    
     <div class="listSort"> <div id="search-form" style="float:right;">#{core.search /}</div></div>
-	#{if objects.size >0}
-        <ol class="listItems">
-          #{list items:objects, as:'object'}    
-            #{sparta.listitem id:object._key()}                
-                <span class="list-display-name"><a href="@{show(object._key())}"><strong>${object.username}</strong></a>
-                </span>
-                        
-                <p><strong>Name:</strong> ${object.firstName} ${object.lastName}</p><p></p>
-      
-                #{sparta.actions}
-                 <a class="action-edit"  href="@{edit(object._key())}">Edit</a>
-                 #{if object.active}
-                 <a class="action-boolean" href="@{xdeactivate(object._key())}">Deactivate</a>
-                 #{/if}
-                 #{else}
-                 <a class="action-boolean" href="@{xactivate(object._key())}">Activate</a>
-                 #{/else}
-                 <a class="action-delete" href="@{xdelete(object._key())}">Delete</a>
-                #{/sparta.actions}
-            #{/sparta.listitem}           	        
-          #{/list}
-        </ol>
-	#{/if}
-	
-	#{if objects.size <= 0}
-	<div style="height:40px; font-size: 80%;"> Nothing Found!</div>
-	#{/if}
+    <div id="coreListTable">
+		#{core.table fields:['displayName','username','firstName','lastName','active','email'] /}
+		#{sparta.pagination/}
+	</div>
 	
 	#{if objects.size > 10}
 	<div class="listButtonsBottom">
@@ -46,8 +32,7 @@
     #{/sparta.toolbar}
     </div>
     #{/if}
-	
-	 #{sparta.pagination/}
 	<div>
+	</div>
      </div>
 </div>

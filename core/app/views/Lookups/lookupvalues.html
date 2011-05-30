@@ -1,0 +1,14 @@
+<div id="relation">	
+	   <div id="coreListTable">
+		#{core.table fields:['code','value','dateCreated', 'lastUpdated']}
+            #{core.custom 'value'}
+               <a href="@{LookupValues.show(object.id)}">
+               ${object.value.length() > 50 ? object.value[0..50] + '…' : object.value}
+               </a>
+            #{/core.custom}
+        #{/core.table}
+        #{if objects.size() ==0}
+        &{'core.nothing.found'}
+        #{/if}
+	</div>		
+</div>

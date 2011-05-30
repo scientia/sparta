@@ -3,10 +3,16 @@ package controllers;
 import java.util.List;
 import java.util.Map;
 
+import controllers.CoreController.ObjectType;
+
 import models.File;
 import models.FileContent;
+import models.ItemFile;
+import models.ItemModel;
+import models.Part;
 import models.Space;
 import play.data.Upload;
+import play.db.Model;
 import play.exceptions.UnexpectedException;
 import play.mvc.With;
 import play.mvc.Http.Request;
@@ -20,9 +26,10 @@ public class Files extends CoreController {
 	 * 
 	 * @param file
 	 * @param name
+	 * @throws ClassNotFoundException 
 	 */
-	public static void upload(Long id , String name, int chunks, int chunk) {
-
+	public static void upload(Long id ,String entityClass, Long entityid, String name, int chunks, int chunk) throws ClassNotFoundException {
+		
 		/*Map args1 = params.all();
 		String name1 = params.get("name");
 		String item = params.get("file");
@@ -50,7 +57,9 @@ public class Files extends CoreController {
 				}
 			}
             if(filename != null && b != null){            	              
-			  new File(filename,name, b, sp).save();
+			  File f = new File(filename,name, b, sp).save();
+			  new ItemFile(entityid, entityClass, f).save();
+			  
             }else{
             	throw new UnexpectedException("Either filename or file content are null.");
             }

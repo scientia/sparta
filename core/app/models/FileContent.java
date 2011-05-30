@@ -128,11 +128,9 @@ public class FileContent implements BinaryField, UserType {
         if(val == null || val.length() == 0 || !val.contains("|")) {
             return new FileContent();
         }
-        String mapDir = getMapDir(rs);
-        
-       //String colName= rs.getString(15);
-      
-    //Object object =   rs.getObject(15);
+        String mapDir = getMapDir(rs);     
+       //String colName= rs.getString(15);      
+       //Object object =   rs.getObject(15);
         return new FileContent(val.split("[|]")[0], val.split("[|]")[1], mapDir);
     }
 

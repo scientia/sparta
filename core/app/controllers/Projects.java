@@ -9,16 +9,19 @@ import java.util.Set;
 
 import controllers.CoreController.ObjectType;
 
+import models.Change;
 import models.DocumentVersion;
 import models.Organization;
 import models.PartVersion;
 import models.Project;
 import models.Staff;
+import models.Task;
 import models.User;
 import play.mvc.Controller;
 import play.i18n.Messages;
 import play.data.validation.Validation;
 import play.data.validation.Valid;
+import play.exceptions.TemplateNotFoundException;
 
 import play.mvc.With;
 
@@ -143,5 +146,20 @@ public class Projects extends CoreController {
 			models.add(dv);
 		}
 		return models;
+	}
+	
+	public static void tasks(String id){
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Project object =  (Project)type.findById(id);
+		notFoundIfNull(object);
+		List<Task> objects = object.getTasks();		
+		type = ObjectType.get(Tasks.class);
+		try{
+		render(type, objects, objects.size(), objects.size(), 0, "number",
+				"DESC");
+		}catch (TemplateNotFoundException e) {
+			render("common/tasks.html", type, objects, objects.size(), objects.size(), 0, "number", "DESC");
+		}
 	}
 }

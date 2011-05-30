@@ -55,6 +55,15 @@ core.help.after=After %s.
 core.help.before=Before %s.
 core.help.range=Between %d and %d
 core.nothing.found=No Objects were found.
+core.bulkdelete=Delete
+
+#Buttons
+
+sparta.button.freeze=Freeze
+sparta.button.clone=Clone
+sparta.button.revise=Revise
+sparta.button.tab=Tab
+
 
 #User
 name=Name
@@ -117,4 +126,5 @@ sparta.staff.users=Members
 sparta.projects=Projects
 sparta.project.staffs=Staffs
 sparta.project.organizations=Participating Organizations
-
+sparta.org.participatingprojects=Participating Projects
+sparta.org.ownedprojects=Owned Projects

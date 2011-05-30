@@ -21,8 +21,9 @@
 		</div> -->
 	<div id="edit-tabs">
 	    <ul>
-		  <li><a href="#basic-info">Basic Info</a></li>
-		  <li><a href="#edit-relations">Edit Relations</a></li>		
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>	
+		  <li><a href="@{tasks(object._key())}">Tasks</a></li>	
 	    </ul>
 	  <div id="basic-info" class="ui-widget">
 	    <table><tbody>
@@ -41,7 +42,7 @@
 	        #{core.element name:"startDate", value:(object? object['startDate'] : null) /}
 	        #{core.element name:"endDate", value:(object? object['endDate'] : null) /}	
 	      </tr><tr>
-	        #{core.element name:"project", value:(object? object['dateCreated'] : null) /}
+	        
 	        #{core.element name:"staff", value:(object.staff? object['lastUpdated'] : null) /}
 	      </tr>
 	    </tbody></table>

@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="@{'/public/javascripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css'}"  type="text/css" />
+#{if _object.project.wipSpace}
 <div style="border:#CCCCCC solid 1px; min-height:50px; margin-bottom: 5px;" >
 
-#{if _space}
+
     <div style="margin:5px; padding-left=20px; height:20px"><span style="padding-left: 5px;"><strong>File Upload</strong></span>
     
     </div>
@@ -18,13 +19,13 @@ $(function() {
 	$("#uploader").plupload({
 		// General settings
 		runtimes : 'flash,html5,browserplus,silverlight,gears,html4',
-		url : '@{Files.upload(_space._key())}',
+		url : '@{Files.upload(_object.project.wipSpace._key())}',
 		max_file_size : '1000mb',
 		max_file_count: 20, // user can add no more then 20 files at a time
 		//chunk_size : '1mb',
 		unique_names : true,
 		multiple_queues : true,
-		//multipart_params: { 'id': '','space': $('#comment').val() },
+		multipart_params: { 'entityClass':"${_type.entityClass.getName()}",'entityid': "${_object._key()}" },
 		// Resize images on clientside if we can
 		resize : {width : 320, height : 240, quality : 90},
 		
@@ -50,7 +51,7 @@ $(function() {
 	});
 
 	// Client side form validation
-	$('form').submit(function(e) {
+	/*$('form').submit(function(e) {
 		var uploader = $('#uploader').plupload('getUploader');
 
 	    uploader.bind('FilesAdded', function(up, files) {
@@ -73,7 +74,7 @@ $(function() {
 
 			e.preventDefault();
 		}
-	});
+	});*/
 
 	$('#uploadbtn').button();
 

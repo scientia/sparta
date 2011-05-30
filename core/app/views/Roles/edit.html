@@ -18,14 +18,8 @@
     </div>    
     <div id="edit-tabs">
 	<ul>
-		<li><a href="#basic-info">Basic Info</a></li>
-		<li><a href="#edit-relations">Relations</a></li>		
-	</ul>
-	<div id="edit-relations">
-	    #{sparta.editrelation object:object, label:"Users", name:"userroles", geturl:"/users/users/listusers"}
-		'@{addusers(object._key())}'
-		#{/sparta.editrelation}     			
-	</div>
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>			
+	</ul>	
 	<div id="basic-info"class="objectForm">
 	
 	#{form action:@save(object._key()), enctype:'multipart/form-data'}

@@ -79,6 +79,16 @@ public class Project extends AdminModel{
 		return staffs;
 	}
 	
+	/** 
+	 *TODO: This needs to be customized further. 
+	 * Project could have many tasks that are not necessarily user is looking for
+	 * @return
+	 */
+	public List<Task> getTasks(){
+		List<Task> tasks = Task.find("byProject", this).fetch();		
+		return tasks;
+	}
+	
 	public void addStaff(Staff staff){
 		new StaffProject(staff, this).save();
 	}

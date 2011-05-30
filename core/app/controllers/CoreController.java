@@ -9,11 +9,13 @@ import org.drools.lang.DRLParser.attributes_key_return;
 import models.DocumentVersion;
 import models.FileContent;
 import models.PartVersion;
+import models.ProductVersion;
 
 import play.*;
 import play.data.binding.*;
 import play.mvc.*;
 import play.db.Model;
+import play.db.jpa.JPA;
 import play.data.validation.*;
 import play.exceptions.*;
 import play.i18n.*;
@@ -38,6 +40,7 @@ public abstract class CoreController extends Controller {
 
 	public static void list(int page, String search, String searchFields,
 			String orderBy, String order) {
+		String format = params.get("format");
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
 		if (page < 1) {
@@ -49,6 +52,7 @@ public abstract class CoreController extends Controller {
 				.get("where"));
 		Long totalCount = type.count(null, null, (String) request.args
 				.get("where"));
+		
 		try {
 			render(type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
@@ -57,6 +61,30 @@ public abstract class CoreController extends Controller {
 		}
 	}
 
+	public static void list2(int page, String search, String searchFields,
+			String orderBy, String order) {
+		
+		String format  = (String)request.args.get("format");
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		if (page < 1) {
+			page = 1;
+		}
+		List<Model> objects = type.findPage(page, search, searchFields,
+				orderBy, order, (String) request.args.get("where"));
+		Long count = type.count(search, searchFields, (String) request.args
+				.get("where"));
+		Long totalCount = type.count(null, null, (String) request.args
+				.get("where"));
+		/*try {
+			render(type, objects, count, totalCount, page, orderBy, order);
+		} catch (TemplateNotFoundException e) {
+			render("core/list.html", type, objects, count, totalCount, page,
+					orderBy, order);
+		}*/
+		renderJSON(objects);
+	}
+	
 	public static void show(String id) {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -462,5 +490,22 @@ public abstract class CoreController extends Controller {
 		Model object = type.findById(id);
 		notFoundIfNull(object);
 		return object;
+	}
+	
+	public static void bulkdelete(Long[] keys) throws Exception {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);		
+		for(int i=0; i< keys.length; i++){
+			Long id = keys[i];
+			Model object = type.findById(id);
+			try {
+				object._delete();
+			} catch (Exception e) {
+				JPA.setRollbackOnly();
+				renderText(Messages.get("core.delete.error", type.modelName));
+				
+			}								
+		}
+		redirect(request.controller + ".list");
 	}
 }

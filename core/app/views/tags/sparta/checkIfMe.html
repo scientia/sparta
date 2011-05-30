@@ -1,0 +1,3 @@
+#{if session.username && controllers.Secure.Security.invoke("checkIfMe", _arg)}
+    #{doBody /}
+#{/if}

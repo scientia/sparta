@@ -19,6 +19,8 @@ import play.data.binding.Binder;
 import play.data.validation.Validation;
 import play.data.validation.Valid;
 import play.db.Model;
+import play.db.jpa.JPA;
+import play.db.jpa.JPAPlugin;
 
 
 import play.mvc.With;
@@ -53,6 +55,40 @@ public class Users extends CoreController {
 	
 	public static void settings(){
 		render();
+	}
+	
+	public static void bulkactivate(Long[] keys){		
+		for(int i=0; i< keys.length; i++){
+			Long id = keys[i];
+			User u = User.findById(id);
+			u.active = true;
+			validation.valid(u);
+			if (validation.hasErrors()) {
+				JPA.setRollbackOnly();
+				renderText("Falied to activate the user "+ u.username);
+			}
+			u.save();				
+		}
+		renderText("Users activated sucessfully."); 
+	}
+	
+	public static void bulkdeactivate(Long[] keys){		
+		for(int i=0; i< keys.length; i++){
+			Long id = keys[i];
+			User u = User.findById(id);
+			u.active = false;
+			validation.valid(u);
+			if (validation.hasErrors()) {
+				List<play.data.validation.Error> ers = validation.errors();
+				for(int j = 0; j < ers.size(); j++){
+					play.data.validation.Error er = ers.get(j);
+				}
+				JPA.setRollbackOnly();
+				renderText("Falied to deactivate the user "+ u.username);
+			}
+			u.save();	
+		}
+		renderText("Users deactivated sucessfully."); 
 	}
 	
 	public static void xactivate(String id) throws Exception {

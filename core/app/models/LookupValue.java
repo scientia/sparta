@@ -25,5 +25,22 @@ public class LookupValue extends TemporalModel {
 		this.value = value;
 	}
 	
+	public String toString(){
+		return code;
+	}
+	
+	//TODO; need to implement with a single query
+	/**
+	 * 
+	 */
+	public static String getValueFromCode(String realm , String code){
+		Lookup lp = Lookup.find("byRealm", realm).first();
+		LookupValue lv = LookupValue.find("byLookupAndCode",lp,code).first();
+		if(lv == null){
+			return "";
+		}
+		return lv.value;
+	}
+	
 	
 }

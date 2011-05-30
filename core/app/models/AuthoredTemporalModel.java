@@ -19,6 +19,7 @@ import play.data.validation.Required;
 @MappedSuperclass
 public abstract class AuthoredTemporalModel extends TemporalModel{
 	
+	
 	public String createdBy;
 	
 	public String updatedBy;

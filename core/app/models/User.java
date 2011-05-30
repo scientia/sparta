@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 
 
 import controllers.Security;
+import controllers.ViewContexts;
 
 import play.data.validation.Email;
 import play.data.validation.Max;
@@ -21,6 +22,7 @@ import play.data.validation.Password;
 import play.data.validation.Range;
 import play.data.validation.Required;
 import play.db.jpa.*;
+import play.libs.Codec;
 import play.modules.scaffold.NoScaffolding;
 import play.mvc.Scope.Session;
 
@@ -46,7 +48,6 @@ public class User extends TemporalModel{
 	public boolean active = true;
 	
 	@Password
-
 	public String password = "";
 	
 	@Required
@@ -65,10 +66,14 @@ public class User extends TemporalModel{
 	  
     public boolean isAdmin;
     
+    @ManyToOne
+    public ViewDefinitionContext viewContext;
+    
     public User(String username, String email, String password) {
     	this.username = username;
         this.email = email;
         this.password = password;
+        this.passwordHash = Codec.hexMD5(password);
         this.firstName = "PRashant";
         this.lastName = "Bhalesain";
         this.active=true;        
@@ -78,11 +83,19 @@ public class User extends TemporalModel{
 		// TODO Auto-generated constructor stub
 	}
 
-    public String getDisplayName(){    	
+    public String getDisplayName(){ 
+    	if(firstName == null || lastName == null){
+    	return username;
+    	}
     	return this.firstName +" " + this.lastName;
     }
+    
+    public boolean checkPassword(String password) {
+        return passwordHash.equals(Codec.hexMD5(password));
+    }
+    
 	public static User connect(String username, String password) {
-    	String encodedPwd = Security.md5(password);
+    	String encodedPwd = Codec.hexMD5(password);
         return find("byUsernameAndPassword", username, encodedPwd).first();
     }
     
@@ -93,6 +106,15 @@ public class User extends TemporalModel{
 	 * Dont know why this is not handled in security module.
 	 */
 	
+	@PrePersist
+	private void onInsert(){
+		if(viewContext == null || viewContext.name == null){
+			ViewDefinitionContext context = ViewDefinitionContext.find("byName", "Default").first();
+			if(context != null){
+			this.viewContext = context;
+			}
+		}
+	}
 	
     public void addRole(String role){  
     	Role _role = Role.findByName(role);
@@ -121,7 +143,7 @@ public class User extends TemporalModel{
     public void setPassword(String password){
     	if (StringUtils.isBlank(password))
             return;
-          this.passwordHash = password;
+          this.passwordHash =  Codec.hexMD5(password);
     }
     public boolean isCurrentUser(String currentUser) {
         String currentUserName = Session.current().get("username");

@@ -1,5 +1,6 @@
 #{extends 'core/layout.html' /}
-
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/apprise.min.css'}" />
+<script src="@{'/public/javascripts/apprise.min.js'}"></script>
 <div id="coreShow">
 	<div class="listSort span-18">
 	&{'sparta.users.settings'}
@@ -12,47 +13,81 @@
 	<ul>
 		<li><a href="#account-info">Account</a></li>
 		<li><a href="#password">Password</a></li>
-		<li><a href="#preferences">Preferences</a></li>
-		<li><a href="#profiles">Profile</a></li>		
+		<li><a href="#context">Context</a></li>
+		<!-- <li><a href="#preferences">Preferences</a></li>
+		<li><a href="#profiles">Profile</a></li>  -->		
 	</ul>
 	<div id="account-info">
-	<div id="message_account"></div> 
-	   <form id="accountForm">  
-          <fieldset>  
-           <legend>Account</legend>  
-           <p><label for="username_text">Username:</label><br />
-           <label for="username_text">${object.username}</label><br /></p>    
-           <p><label for="email_text">E-mail:</label><br />
-           <input id="email_text" type="text" name="u.email" /></p>
-           <p><label for="firstName_text">First Name:</label><br />
-           <input id="firstName_text" type="text" name="u.firstName" /></p>
-           <p><label for="lastName_text">Last Name:</label><br />
-           <input id="lastName_text" type="text" name="u.lastName" /></p>         
-           <p><input type="submit" value="Submit" /></p>  
-           </fieldset>
-       </form>  
-       
+	   <div id="basic-info"class="objectForm">
+	   <form id="accountForm" action="@{accountupdate}" method="POST" accept-charset="utf-8">	
+	   <div class="coreField core_username">
+           <label for="object_username">&{'username'}</label>
+           <input type="hidden" name="u.username" value="${object.username}" />
+           <input type="hidden" name="u.id" value="${object._key()}" />
+           <input id="object_username" class=""  name="" value="${object.username}" size="50" disabled/>
+        </div>	
+        <div class="coreField core_email">
+           <label for="object_email">&{'email'}</label>
+           <input id="object_email" class=""  name="u.email" value="${object.email}" size="50" />
+        </div>	
+        <div class="coreField core_firstname">
+           <label for="object_firstname">&{'firstName'}</label>
+           <input id="object_firstname" class=""  name="u.firstName" value="${object.firstName}" size="50" />
+        </div>
+        <div class="coreField core_lastName">
+           <label for="object_lastName">&{'lastName'}</label>
+           <input id="object_lastName" class="" name="u.lastName" value="${object.lastName}" size="50" />
+        </div>	
+		<p class="coreButtons button">
+			<input id="update-account" type="submit" name="_save" value="Update" />		
+		</p>
+		</form>	
+	  </div>
 	</div>
+	
 	<div id="password">
 	<div id="message_pwd"></div> 
-	<form id="passwordForm">  
-          <fieldset>  
-           <legend>Update Password</legend>                
-           <p><label for="currentpassword_text">Current Password:</label><br />
-           <input id="currentpassword_text" type="text" name="currentpassword" /></p>
-           <p><label for="newpassword_text">New Password:</label><br />
-           <input id="newpassword_text" type="text" name="newpassword" /></p>
-           <p><label for="verifypassword_text">Verify Password:</label><br />
-           <input id="verifypassword_text" type="text" name="verifypassword" /></p>         
-           <p><input type="submit" value="Submit" /></p>  
-           </fieldset>
-       </form>  
+	<div id="basic-info"class="objectForm">
+	<form id="passwordForm" action="@{changepwd}" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >	
+	   <div class="coreField core_password">
+           <label for="object_oldpwd">&{'sparta.settings.oldpwd'}</label>
+           <input id="object_oldpwd" class="" type="password" name="object.oldpwd" value="" size="50" disabled/>
+        </div>	
+        <div class="coreField core_password">
+           <label for="object_newpwd">&{'sparta.settings.newpwd'}</label>
+           <input id="object_newpwd" class="" type="password" name="object.newpwd" value="" size="50" disabled />
+        </div>	
+        <div class="coreField core_password">
+           <label for="object_verifypwd">&{'sparta.settings.verifypwd'}</label>
+           <input id="object_verifypwd" class="" type="password" name="object.verifypwd" value="" size="50" disabled/>
+        </div>	
+		<p class="coreButtons button">
+			<input id="change-password" type="submit" name="_save" value="Change Context" />		
+		</p>
+		</form>	
 	</div>
+	</div>
+	<div id="context"class="objectForm">
+	<div id="basic-info"class="objectForm">
+	<form id="changeContextForm" action="@{changecontext}" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
+	   <div class="coreField core_context">        
+          <label for="object_viewContext">&{'sparta.settings.viewcontext'}</label>
+          <select id="object_viewContext" name="context.id">
+              <option value="">(None)</option>
+              <option value="1" selected="true">Default</option>
+          </select>
+        </div>		
+		<p class="coreButtons button">
+			<input id="change-context" type="submit" name="_save" value="Change Context" />		
+		</p>
+		</form>	
+	</div>
+	
 	<div id="preferences"class="objectForm">
-	fffdgfdg
+	
 	</div>
 	<div id="profiles"class="objectForm">
-	fffdgfdg
+	
 	</div>
    </div>
    </div>

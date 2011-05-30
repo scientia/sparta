@@ -6,8 +6,12 @@
 GET        /users/edit/{id}                              Users.edit
 GET        /organizations/edit/{id}                      Organization.edit
 GET        /staffs/edit/{id}                             Staffs.edit
+GET        /lookups/edit/{id}                            Lookups.edit
+GET        /lookups/{id}/values                          Lookups.lookupvalues
+GET        /lookupvalues/edit/{id}                       LookupValues.edit
 POST	   /users/xactivate/{id}	                     Users.xactivate
 POST	   /users/xdeactivate/{id}	                     Users.xdeactivate
+
 
 #{core.types}
 GET			/?											${type.controllerClass.name.substring(12).replace('$','')}.index

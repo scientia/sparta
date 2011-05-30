@@ -68,7 +68,7 @@ public class Organizations extends CoreController {
 		// render(type, documents, documents.size(), documents.size(), 1,
 		// orderBy, order);
 		type = ObjectType.get(Projects.class);
-		render(type, objects, objects.size(), objects.size(), 0, "number",
+		render(type, objects, objects.size(), objects.size(), 0, "name",
 				"DESC");
 		// render(objects);
 	}
@@ -82,7 +82,7 @@ public class Organizations extends CoreController {
 		// render(type, documents, documents.size(), documents.size(), 1,
 		// orderBy, order);
 		type = ObjectType.get(Projects.class);
-		render(type, objects, objects.size(), objects.size(), 0, "number",
+		render(type, objects, objects.size(), objects.size(), 0, "name",
 				"DESC");
 		// render(objects);
 	}

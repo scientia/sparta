@@ -5,6 +5,7 @@
 <script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
 
 <div id="coreShow" class="${type.name}">
+${session.viewcontext}
 	<div class="listSort span-18">
 	&{'sparta.part.edit.title', object.displayName}
 	</div>
@@ -18,16 +19,10 @@
     </div>    
     <div id="edit-tabs">
 	<ul>
-		<li><a href="#basic-info">Basic Info</a></li>
-		<li><a href="#edit-relations">Relations</a></li>		
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+				
 	</ul>
-	<div id="edit-relations">
-	    #{sparta.editrelation object:object, label:"Roles", name:"userroles", geturl:"/users/roles/listroles"}
-		'@{addroles(object._key())}'
-		#{/sparta.editrelation}
-      
-			
-	</div>
+	
 	<div id="basic-info"class="objectForm">
 	
 	#{form action:@save(object._key()), enctype:'multipart/form-data'}
@@ -37,7 +32,9 @@
 		#{sparta.field name:'firstName'/}
 		#{sparta.field name:'lastName'/}
 		#{sparta.field name:'active'/}
-			
+		#{sparta.checkIfMe object.username}
+		#{sparta.field name:'viewContext'/}
+		#{/sparta.checkIfMe}	
 		#{/sparta.form}
 		</div>
 		<p class="coreButtons button">

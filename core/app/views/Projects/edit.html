@@ -18,19 +18,8 @@
     </div>    
     <div id="edit-tabs">
 	<ul>
-		<li><a href="#basic-info">Basic Info</a></li>
-		<li><a href="#edit-relations">Relations</a></li>		
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>			
 	</ul>
-	<div id="edit-relations">
-	    #{sparta.editrelation object:object, label:"Participating Organizations", name:"projorgs", geturl:"/users/organizations/listorgs"}
-		'@{addorgs(object._key())}'
-		#{/sparta.editrelation}
-	    
-	    #{sparta.editrelation object:object, label:"Staffs", name:"projectstaffs", geturl:"/users/staffs/liststaffs"}
-		'@{addstaffs(object._key())}'
-		#{/sparta.editrelation}	
-			
-	</div>
 	
 	<div id="basic-info"class="objectForm">
 	

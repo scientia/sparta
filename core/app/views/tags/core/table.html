@@ -11,10 +11,10 @@
 
 <table>
     <thead>
-        <tr><th><input type="checkbox" class="check-all" name="keys"/></th>
+        <tr ><th class="ui-state-default ui-th-column ui-th-ltr" width="10px"><input type="checkbox" class="check-all" name="keys"/></th>
         %{ if(_fields) { }%
             %{ _fields.each() { }%
-            <th width="${100 / _fields.size()}%">
+            <th width="${100 / _fields.size()}%" class="ui-state-default ui-th-column ui-th-ltr">
                 %{ if(!_sort || _sort.contains(it)) { }%
                 <a class="${_caller.orderBy == it ? (_caller.order == 'DESC' ? 'coreSortedDesc' : 'coreSortedAsc') : ''}" href="@{list().remove('page').add('search', params.search).add('orderBy', it).add('order', (_caller.orderBy == it && _caller.order == 'ASC' ? 'DESC' : 'ASC'))}">
                     &{it}
@@ -25,7 +25,7 @@
             </th>
             %{ } }%
         %{ } else { }%
-            <th>
+            <th class="ui-state-default ui-th-column ui-th-ltr">
                 <a class="${_caller.order == 'DESC' ? 'coreSortedDesc' : 'coreSortedAsc'}" href="@{list().remove('page').add('search', params.search).add('order', (_caller.order == 'DESC' ? 'ASC' : 'DESC'))}">
                     &{_caller.type.name}
                 </a>
@@ -34,8 +34,8 @@
         </tr>
     </thead>
     %{ _caller.objects.eachWithIndex() { object, k -> }%
-    <tr class="${k % 2 ? 'even' : 'odd'}">
-    <td class="action"><input class="key-check" type="checkbox" name="keys" value="${key}"/></td>
+    <tr class="${k % 2 ? 'even' : 'odd'} spartarow" >
+    <td class="action" width="5px"><input class="key-check" type="checkbox" name="keys" value="${object._key()}"/></td>
         %{ if(_fields) { }%
             %{ _fields.eachWithIndex() { field, i -> }%
             <td>
@@ -50,6 +50,7 @@
                     }%
                 %{ } else { }%
                     %{ if(i == 0) { }%
+                    
                         <a href="@{show(object._key())}">${object[field]?.toString()?.escape()?.raw() ?: '(no value)'}</a>
                     %{ } else { }%
                         %{ if(_caller.type.getField(field).type == 'file') { }%
@@ -81,3 +82,37 @@
     </tr>
     %{ } }%
 </table>
+
+<script>
+$(".spartarow").hover(function(){
+	$(this).children().addClass("ui-state-hover");
+},function(){
+	$(this).children().removeClass("ui-state-hover");
+}
+);
+
+$(".check-all").click(
+		function() {
+			if ($(this).is(":checked")) {
+				$(this).closest("table").find("input.key-check")
+						.attr("checked", "checked");
+				$(this).closest("table").find("tr").addClass("ui-state-highlight");
+			} else {
+				$(this).closest("table").find("input.key-check")
+						.removeAttr("checked");
+				$(this).closest("table").find("tr").removeClass("ui-state-highlight");
+			}
+});
+
+$("#coreListTable .spartarow").click(function(){
+	    var check = $(this).children().find("input.key-check");
+	    if(check.is(":checked")){				    	
+	    	check.removeAttr("checked");
+	    	$(this).removeClass("ui-state-highlight");
+	    }else{				    	
+	    	check.attr("checked", "checked");
+	    	$(this).addClass("ui-state-highlight");
+	    	
+	    }			
+});
+</script>

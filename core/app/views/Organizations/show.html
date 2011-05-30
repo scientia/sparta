@@ -7,7 +7,7 @@
 
 <div id="coreShow " class="${type.name}">
     <div class="listSort">
-	   <h3>&{'organization.show.title', type.modelName} : ${object.displayName}</h3>
+	   &{'organization.show.title', type.modelName} : ${object.displayName}
 	</div>
 	<div class="listButtons">
 	   #{sparta.toolbar}
@@ -17,8 +17,8 @@
 	</div>
 	<div id="edit-tabs">
 	    <ul>
-		  <li><a href="#basic-info">Basic Info</a></li>
-		  <li><a href="#edit-relations">Edit Relations</a></li>		
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		 <!--  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li> -->		
 	    </ul>
 	  <div id="basic-info" class="ui-widget">
 	    <table><tbody>
@@ -33,7 +33,8 @@
 	    </tbody></table>
 	    <br/>      
           #{sparta.tabs}
-             #{sparta.tab link:"/staffs/members?id="+object._key(), value:"sparta.staff.users"/}		    										
+            #{sparta.tab link:"/organizations/ownedprojects?id="+object._key(), value:"sparta.org.ownedprojects"/}
+            #{sparta.tab link:"/organizations/participatingprojects?id="+object._key(), value:"sparta.org.participatingprojects"/}                        					
           #{/sparta.tabs}
      </div>
           
