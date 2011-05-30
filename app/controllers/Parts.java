@@ -14,14 +14,21 @@ import models.DesignDocumentVersion;
 import models.Document;
 import models.DocumentVersion;
 import models.ECO;
+import models.ECR;
+import models.File;
+import models.LookupValue;
 import models.Part;
+import models.PartStructure;
 import models.PartVersion;
 import models.Plant;
 import models.Project;
 import models.Supplier;
+import models.UnitOfMeasure;
 import models.User;
+import models.number.PartNumber;
 import play.data.binding.Binder;
 import play.db.Model;
+import play.db.jpa.JPA;
 import play.db.jpa.JPAPlugin.JPAModelLoader;
 import play.exceptions.TemplateNotFoundException;
 import play.i18n.Messages;
@@ -32,6 +39,9 @@ import play.mvc.With;
 @For(PartVersion.class)
 public class Parts extends Products {
 
+	private static String DEFAULT_UOM = "uom";
+	private static String DEFAULT_SERVICEPART = "false";
+	
 	@Before
 	public static void addType() throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
@@ -144,9 +154,27 @@ public class Parts extends Products {
 	public static void create() throws Exception {
 		/** First create the identifier */
 		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		String isServicePart = params.get("object.identifier.servicePart");
+		String uom = params.get("object.identifier.uom");
+		if(isServicePart == null){
+			isServicePart = DEFAULT_SERVICEPART;
+		}
+		if(uom == null){
+			uom = DEFAULT_UOM;
+		}
+		String number = PartNumber.getPartNumber();
+		Part part = new Part(number);
+		part.servicePart = Boolean.parseBoolean(isServicePart);
+		part.uom = UnitOfMeasure.find("byCode", uom).first();		
+		part.save();		
+		if(part == null){
+			JPA.setRollbackOnly();
+			error(Messages.get("sparta.partidentifier.failedcreate"));
+		}
 		PartVersion partVersion = new PartVersion();
 		Binder.bind(partVersion, "object", params.all());
-
+		partVersion.identifier = part;
 		validation.valid(partVersion);
 		if (validation.hasErrors()) {
 			renderArgs.put("error", Messages.get("core.hasErrors"));
@@ -157,9 +185,12 @@ public class Parts extends Products {
 				render("core/blank.html", type, partVersion);
 			}
 		}
-		Part part = new Part("1234563", "02", false).save();
-		partVersion.identifier = part;
+		
+		//String number = PartNumber.getPartNumber();
+		//Part part = new Part(number).save();
+		//partVersion.identifier = part;
 		partVersion._save();
+		
 		flash.success(Messages.get("core.created", type.modelName));
 		if (params.get("_save") != null) {
 			redirect(request.controller + ".list");
@@ -172,13 +203,7 @@ public class Parts extends Products {
 
 
 	
-	public static void revise(String id) {
-		documents("1");
-	}
-
-	public static void clone(String id) {
-		documents("1");
-	}
+	
 
 	public static void freeze(String id) {
 		documents("1");
@@ -301,7 +326,7 @@ public class Parts extends Products {
 		notFoundIfNull(type);
 		PartVersion object = (PartVersion) type.findById(id);
 		notFoundIfNull(object);
-		List<PartVersion> objects = object.getUsesParts();
+		List<PartStructure> objects = object.getUsesParts();
 		
 		type = ObjectType.get(Parts.class);
 		render(type, objects, objects.size(), objects.size(), 0, "number",
@@ -370,6 +395,21 @@ public class Parts extends Products {
 		render(type, objects, objects.size(), objects.size(), 0, "number",
 				"DESC");
 	}
+	
+	public static void files(String id) {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		PartVersion object =  (PartVersion)type.findById(id);
+		notFoundIfNull(object);
+		List<File> objects = object.getFiles( type.entityClass.getName());		
+		type = ObjectType.get(Files.class);
+		try{
+		render(type, objects, objects.size(), objects.size(), 0, "name",
+				"DESC");
+		}catch (TemplateNotFoundException e) {
+			render("common/files.html", type, objects, objects.size(), objects.size(), 0, "name", "DESC");
+		}
+   }
 	
 	/** Plant Relations Tab Start*/
 	public static void addplants(String id) {
@@ -465,4 +505,30 @@ public class Parts extends Products {
 		return models;	
 	}
 	
+	public static void ecos(String id){
+		PartVersion object = (PartVersion) getObjectFromId(id);
+		List<ECO> objects = object.getECOs();		
+		ObjectType type = ObjectType.get(ECOs.class);
+		render(type, objects, objects.size(), objects.size(), 0, "number",
+				"DESC");
+	}
+	
+	public static void ecrs(String id){
+		PartVersion object = (PartVersion) getObjectFromId(id);
+		List<ECR> objects = object.getECRs();		
+		ObjectType type = ObjectType.get(ECRs.class);
+		render(type, objects, objects.size(), objects.size(), 0, "number",
+				"DESC");
+	}
+	
+	public static void versions(Long id){
+		ObjectType type = ObjectType.get(Parts.class);
+		notFoundIfNull(type);
+		PartVersion object = (PartVersion) type.findById(id);
+		notFoundIfNull(object);
+	    Part identifier = object.identifier;
+	    
+	    List<PartVersion> objects = PartVersion.find("byIdentifier", identifier).fetch();
+	    render(type, objects);		
+	}
 }

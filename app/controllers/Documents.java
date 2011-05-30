@@ -11,7 +11,9 @@ import controllers.CoreController.ObjectType;
 import models.DesignDocumentVersion;
 import models.Document;
 import models.DocumentVersion;
+import models.File;
 import models.PartVersion;
+import models.ProductVersion;
 import models.User;
 import play.mvc.Controller;
 import play.i18n.Messages;
@@ -56,6 +58,7 @@ public abstract class Documents extends Products {
 		renderJSON(doclist);
 	}
 	
+	
 	public static void ecos(){
 		
 	}
@@ -81,9 +84,22 @@ public abstract class Documents extends Products {
 		//render(objects);
 	}
 	
-	public static void files(){
-		
+	
+	public static void files(String id) {
+			ObjectType type = ObjectType.get(getControllerClass());
+			notFoundIfNull(type);
+			DocumentVersion object =  (DocumentVersion)type.findById(id);
+			notFoundIfNull(object);
+			List<File> objects = object.getFiles( type.entityClass.getName());		
+			type = ObjectType.get(Files.class);
+			try{
+			render(type, objects, objects.size(), objects.size(), 0, "name",
+					"DESC");
+			}catch (TemplateNotFoundException e) {
+				render("common/files.html", type, objects, objects.size(), objects.size(), 0, "name", "DESC");
+			}
 	}
+		
 	
 	/** Parts Tab*/
 	/**
