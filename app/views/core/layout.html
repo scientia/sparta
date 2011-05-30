@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" media="print" href="@{'/public/css/print.css'}">
         <link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/stylesheets/_menu.css'}">
         <link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/css/screen.css'}" />
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/themes/redmond/jquery-ui-1.8.9.custom.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/jquery-ui-1.8.9.custom.css'}" />
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/fg.menu.css'}" />
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/main.css'}" />  
 		<!--[if lt IE 8]><link rel="stylesheet" type="text/css" media="screen, projection" href="/css/ie.css"><![endif]-->
@@ -36,7 +36,7 @@
 			<h1><a href="@{coreController.index()}">&{'main.title'}</a></h1>
 			</div>
 		</div>
-		<div id="globalContainer"  >
+		<div id="globalContainer"  class="ui-corner-all" >
 		<div class="span-5 navigation-panel ui-widget ui-corner-all">
 		<div class="ui-widget-header ">Navigation</div>
 		#{menu.menu /}
@@ -48,12 +48,12 @@
 		#{/if}-->
 
 		#{if flash.success}
-			<div id="success-message" class="span-18 coreFlash flashSuccess">
+			<div id="success-message" class="span-17 coreFlash flashSuccess">
 				${flash.success}
 			</div>
 		#{/if}
 		#{if flash.error || error}
-			<div id="flash-message" class="span-18 coreFlash flashError ">
+			<div id="flash-message" class="span-17 coreFlash flashError ">
 				${error ?: flash.error}
 			</div>
 		#{/if}
@@ -61,9 +61,11 @@
 		<div  class="span-18 content">
 			#{doLayout /}
 		</div>
-		</div>
-		<div class="footer span-21">
+		
+		<div class="footer ui-corner-all" style="width:100%; margin-top:5px;">
 			@Scientia!
 		</div>
+		</div>
+		
 	</body>
 </html>

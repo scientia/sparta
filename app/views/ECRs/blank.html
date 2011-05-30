@@ -15,11 +15,11 @@
 		<tr><td>
 		#{sparta.field name:'name'/}
 		</td><td>
-		#{sparta.field name:'urgency'/}
+		#{sparta.field name:'urgency'/}		
 		</td></tr>
 		
 		<tr><td>
-		#{sparta.field name:'originator'/}
+		#{sparta.field name:'project'/}
 		</td><td>
 		#{sparta.field name:'analyst'/}
 		</td></tr>
@@ -39,7 +39,7 @@
 		<tr><td>
 		#{sparta.field name:'verifier'/}
 		</td><td>
-		#{sparta.field name:'problemStatus'/}
+		#{sparta.lookupField name:'problemStatus', realm:'sparta.change.problemstatus'/}
 		</td></tr>
 		
 		<tr><td>
@@ -51,7 +51,6 @@
 		<tr><td>
 		#{sparta.field name:'customer'/}
 		</td><td>	
-		#{sparta.field name:'project'/}	
 		</td></tr>
 		
 		</tbody>

@@ -4,21 +4,33 @@
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
 <script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
 <script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
 
+	$(".btn-slide").click(function(){
+		$("#panel").slideToggle("slow");
+		$(this).toggleClass("more-active"); return false;
+	});
+});
+</script>
 <div id="coreShow " class="${type.name}">
     <div class="listSort">
 	   &nbsp&nbsp &{'eco.show.title', type.modelName} : ${object.displayName}
 	</div>
 	<div class="listButtons">
 	   #{sparta.toolbar}
+	   <div style="display:inline; float:left;">
+<a  href="@{addTask(object._key())}">&{'core.add', 'Task'}</a>
+</div>
 	      #{sparta.delete id:object._key(), name:type.modelName /}
 	      #{sparta.edit id:object._key(), name:type.modelName /}
 	   #{/sparta.toolbar}
 	</div>
 	<div id="edit-tabs">
 	    <ul>
-		  <li><a href="#basic-info">Basic Info</a></li>
-		  <li><a href="#edit-relations">Edit Relations</a></li>		
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>
+		  <li><a href="@{tasks(object._key())}">Tasks</a></li>		
 	    </ul>
 	  <div id="basic-info" class="ui-widget">	    
 	    <table>
@@ -53,12 +65,12 @@
 		#{core.element name:"analyst", value:(object.analyst? object.analyst['username'] : null) /}
 		</td></tr>
 		
-		<tr><td>
-		#{core.element name:"interchangeable", value:(object? object['interchangeable'] : null) /}
-		</td><td>
-		#{core.element name:"noninterchangeable", value:(object? object['noninterchangeable'] : null) /}
-		</td></tr>		
+			
+		</tbody></table>
+		<!-- - -->
 		
+		<div id="panel">
+		<table><tbody>
 		<tr><td>
 		#{core.element name:"nextOrder", value:(object? object['nextOrder'] : null) /}
 		</td><td>
@@ -90,7 +102,7 @@
 		</td></tr>
 		
 		<tr><td>
-		#{core.element name:"documentOnly", value:(object? object['documentOnly'] : null) /}
+		
 		</td><td>
 		#{core.element name:"retrofit", value:(object? object['retrofit'] : null) /}
 		</td></tr>		
@@ -130,6 +142,7 @@
 		</td><td>
 		#{core.element name:"replanDate", value:(object? object['replanDate'] : null) /}
 		</td></tr>
+		
 		<tr><td>
 		#{core.element name:"actualDate", value:(object? object['actualDate'] : null) /}
 		</td></tr>
@@ -174,8 +187,11 @@
         </td><td>
         #{core.element name:"workflowstatus", value:(object? object['workflowstatus'] : null) /}
         </td></tr>
-       </tbody>
+        </tbody>
 		</table>
+		</div>
+		<br/>
+        <p class="slide"><a href="#" class="btn-slide">More</a></p>
 	    
 	    <br/>
           #{sparta.tabs}            
@@ -207,20 +223,25 @@
 		    '@{addrfncddocs(object._key())}'
 		    #{/sparta.editrelation}
 		 
-		    #{sparta.editrelation object:object, label:"Customer", name:"partcustomers", geturl:"/users/customers/listcustomers"}
+		    #{sparta.editrelation object:object, label:"Customer", name:"changecustomers", geturl:"/users/customers/listcustomers"}
 		    '@{addcustomers(object._key())}'
 		    #{/sparta.editrelation}   
         
-            #{sparta.editrelation object:object, label:"Plants", name:"partplants", geturl:"/users/plants/listplants" }
+            #{sparta.editrelation object:object, label:"Plants", name:"changeplants", geturl:"/users/plants/listplants" }
 		    '@{addplants(object._key())}'
 		    #{/sparta.editrelation}
 		
-            #{sparta.editrelation object:object, label:"Suppliers", name:"partsuppliers", geturl:"/users/suppliers/listsuppliers" }
+            #{sparta.editrelation object:object, label:"Suppliers", name:"changesuppliers", geturl:"/users/suppliers/listsuppliers" }
 		    '@{addsuppliers(object._key())}'
 		    #{/sparta.editrelation}
 				
-		    #{sparta.fileupload posturl:'/dashboard/dump', uploadurl:'/dashboard/upload'/}		
-	    </div>
+		    #{if object.project}
+		    #{sparta.fileupload type:type, object:object, posturl:'/dashboard/dump', uploadurl:'/files/upload'/}
+		    #{/if}
+		    #{else}
+		    Update the project to upload files.
+		    #{/else}		
+	    </div>	   
     </div>
 </div>
 <script>

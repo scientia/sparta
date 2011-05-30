@@ -2,8 +2,11 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
+
 <script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
 <script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/ui.jqgrid.css'}" />
 
 <div id="coreShow " class="${type.name}">
     <div class="listSort">
@@ -11,16 +14,23 @@
 	</div>
 	<div class="listButtons">
 	   #{sparta.toolbar}
-	      #{sparta.delete id:object._key(), name:type.modelName /}
-	      #{sparta.edit id:object._key(), name:type.modelName /}
+	       #{sparta.delete id:object._key(), name:type.modelName /}
+	       #{sparta.tabitem id:object._key(), name:type.modelName /}
+	       #{sparta.clone id:object._key(), name:type.modelName /}
+	       #{sparta.revise id:object._key(), name:type.modelName /}
+	       #{sparta.freeze id:object._key(), name:type.modelName /}
+	       #{sparta.edit id:object._key(), name:type.modelName /}
 	   #{/sparta.toolbar}
 	</div>
 	<div id="edit-tabs">
 	    <ul>
-		  <li><a href="#basic-info">Basic Info</a></li>
-		  <li><a href="#edit-relations">Edit Relations</a></li>		
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>	
+		  <li><a href="#bom">Bom</a></li>
+		  <li><a href="@{versions(object._key())}">Versions</a></li>		
 	    </ul>
 	  <div id="basic-info" class="ui-widget">
+	  
 	    <table><tbody>
     	    <tr>
 	           #{core.element name:"name", value:(object? object['name'] : null) /}
@@ -35,13 +45,13 @@
 	           #{core.element name:"description", value:(object? object['description'] : null) /}
 	           #{core.element name:"project", value:(object.project? object.project['name'] : null) /}
 	        </tr><tr>
-	           #{core.element name:"finish", value:(object? object['finish'] : null) /}
-	           #{core.element name:"material", value:(object? object['material'] : null) /}
+	           #{sparta.lookupValueField name:"finish", realm:"sparta.product.finish", value:(object? object['finish'] : null) /}
+	           #{sparta.lookupValueField name:"material", realm:"sparta.product.material", value:(object? object['material'] : null) /}
 	        </tr><tr>
 	           #{core.element name:"makeOrBuy", value:(object? object['makeOrBuy'] : null) /}
 	           #{core.element name:"releaseState", value:(object? object['releaseState'] : null) /}
 	        </tr><tr>	           
-	           #{core.element name:"clone", value:(object? object['clone'] : null) /}
+	           #{core.element name:"cloned", value:(object? object['cloned'] : null) /}
 	           #{core.element name:"frozen", value:(object? object['frozen'] : null) /}
 	        </tr><tr>	   	     
 	           #{core.element name:"clonedBy", value:(object? object['clonedBy'] : null) /}
@@ -54,9 +64,7 @@
 	           #{core.element name:"lastUpdated", value:(object? object['lastUpdated'] : null) /}
 	        </tr><tr>
 	    </tbody></table>
-	    <br/>
-   
-      
+	   
           #{sparta.tabs}
              #{sparta.tab link:"/parts/ecos?id="+object._key(), value:"sparta.ecos"/}
 		     #{sparta.tab link:"/parts/ecrs?id="+object._key(), value:"sparta.ecrs"/}
@@ -70,7 +78,7 @@
           #{/sparta.tabs}
           </div>
           
-        <div id="edit-relations">
+         <div id="edit-relations">
 	        #{sparta.editrelation object:object, label:"Parts", name:"used", geturl:"/users/parts/listparts"}
 		    '@{addparts(object._key())}'
 		    #{/sparta.editrelation}
@@ -100,17 +108,17 @@
 		    #{/sparta.editrelation}
 			
 			#{if object.project}
-		    #{sparta.fileupload space:object.project.wipSpace, posturl:'/dashboard/dump', uploadurl:'/dashboard/upload'/}
-		    #{/if}
-		    #{else}
-		    Update the project to upload files.
-		    #{/else}
-		    		
+		#{sparta.fileupload type:type, object:object, posturl:'/dashboard/dump', uploadurl:'/files/upload'/}
+		#{/if}
+		#{else}
+		Update the project to upload files.
+		#{/else}	    	
+	    </div >
+	   
+	    <div id="bom" >
+	  
 	    </div>
+
     </div>
+   
 </div>
-<script>
-$(function() {
-	$( "#edit-tabs" ).tabs();
-});
-</script>

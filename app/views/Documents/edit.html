@@ -18,23 +18,15 @@
     </div>    
     <div id="edit-tabs">
 	<ul>
-		<li><a href="#basic-info">Basic Info</a></li>
-		<li><a href="#edit-relations">Relations</a></li>		
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>			
 	</ul>
-	<div id="edit-relations">
-	    #{sparta.editrelation object:object, label:"Example", name:"userroles", geturl:"/users/users/listparts"}
-		'}'
-		#{/sparta.editrelation}    
-			
-	</div>
+	
 	<div id="basic-info"class="objectForm">
 	
 	#{form action:@save(object._key()), enctype:'multipart/form-data'}
 	    <div >
-		#{sparta.form }
-		#{sparta.field name:'name'/}
-		#{sparta.field name:'description'/}	
-		#{/sparta.form}
+		#{core.form /}
+		
 		</div>
 		<p class="coreButtons button">
 			<input type="submit" name="_save" value="&{'core.save', type.modelName}" />

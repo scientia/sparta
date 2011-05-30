@@ -1,18 +1,12 @@
-<div id="relation">
-		#{if objects.size()}
-		<div class="listSort">
-		</div>
-	<div id="coreListTable">
-		#{core.table fields:['name', 'project','dateCreated', 'lastUpdated']}
+<div id="coreListTable">
+		#{core.table fields:['displayName','name','project','dateCreated', 'lastUpdated']}
             #{core.custom 'name'}
                <a href="@{Parts.show(object.id)}">
-               ${object.name.length() > 50 ? object.name[0..50] + '…' : object.name}
+               ${object.name.length() > 50 ? object.name[0..50] + 'ï¿½' : object.name}
                </a>
             #{/core.custom}
         #{/core.table}
+        #{if objects.size() ==0}
+        &{'core.nothing.found'}
+        #{/if}
 	</div>  
-    #{/if}
-    #{else}
-        Nothing Found
-    #{/else}		
-</div>

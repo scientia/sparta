@@ -1,0 +1,32 @@
+#{extends 'core/layout.html' /}
+<div id="coreShow " class="${type.name}">
+	<div class=" ui-corner-all">	
+    <div class="listSort">
+	&nbsp&nbsp &{'default.show.title', type.modelName} : ${object.name}
+	</div>
+	<div class="listButtons">
+	#{sparta.toolbar}
+	#{sparta.delete id:object._key(), name:type.modelName /}
+	#{sparta.edit id:object._key(), name:type.modelName /}
+	#{/sparta.toolbar}
+	</div>
+	<div id="edit-tabs">
+	<div id="basic-info" class="ui-widget">
+	<table><tbody>
+	<tr><td>
+	#{core.element name:"name", value:(object? object['name'] : null) /}	
+	</td><td>
+	#{sparta.lookupValueField name:"applicationDomain", realm:"sparta.context.applicationdomain", value:(object? object['applicationDomain'] : null) /}    
+    </td></tr>
+    <tr><td>
+    #{sparta.lookupValueField name:"releaseState", realm:"sparta.context.releasestate", value:(object? object['releaseState'] : null) /}
+    </td><td>    
+    #{sparta.lookupValueField name:"configuration", realm:"sparta.context.configuration", value:(object? object['configuration'] : null) /}
+    </td>	
+	</tr><tr><td>#{core.element name:'description'/}</td>	
+	</tr>	           
+	</tbody></table>
+	</div>
+   </div>
+    
+</div>

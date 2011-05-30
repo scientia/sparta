@@ -7,17 +7,17 @@
 	<div class="objectForm">
 	
 	#{form action:@create(), enctype:'multipart/form-data'}
-	<div class="ui-widget">
+	<div class="ui-widget">	
 		#{sparta.form }
 		<table>
 		<tbody>
 		<tr><td>
-		#{sparta.field name:'number'/}
-		</td><td>
 		#{sparta.field name:'name'/}
+		</td><td>
+		#{sparta.lookupField name:'changeClass', realm:'sparta.eco.changeclass'/}		
 		</td></tr>
 		<tr><td>
-		#{sparta.field name:'urgency'/}
+		#{sparta.field name:'project'/}
 		</td><td>
 		#{sparta.field name:'approvalPlan'/}			
 		</td></tr>
@@ -33,14 +33,9 @@
 		</td></tr>
 		
 		<tr><td>
-		#{sparta.field name:'originator'/}
+		
 		</td><td>		
 		#{sparta.field name:'analyst'/}
-		</td></tr>
-		<tr><td>
-		#{sparta.field name:'interchangeable'/}
-		</td><td>
-		#{sparta.field name:'noninterchangeable'/}
 		</td></tr>
 		
 		<tr><td>
@@ -73,10 +68,8 @@
 		#{sparta.field name:'inField'/}
 		</td></tr>
 		
-		
-		
 		<tr><td>
-		#{sparta.field name:'documentOnly'/}
+		#{sparta.field name:'urgency'/}		
 		</td><td>
 		#{sparta.field name:'retrofit'/}
 		</td></tr>
@@ -127,13 +120,12 @@
 		</td>
 		<td>#{sparta.field name:'closedDate'/}</td>		
 		</tr>
-		<tr><td>#{sparta.field name:'designComplete'/}</td></tr>
+		<tr><td>#{sparta.field name:'designComplete'/}</td><td></td></tr>
 		</table></tr>
 		
         <tr><td>
 		#{sparta.field name:'solution'/}
 		</td><td>
-		#{sparta.field name:'originator'/}
 		</td></tr>
 		
         <tr><td>
@@ -149,7 +141,7 @@
         </td></tr>
         
         <tr><td>
-        #{sparta.field name:'problemStatus'/}
+        #{sparta.lookupField name:'problemStatus', realm:'sparta.change.problemstatus'/}        
         </td><td>
         #{sparta.field name:'reason'/}
         </td></tr>
@@ -157,7 +149,7 @@
         <tr><td>
         #{sparta.field name:'acceptConditions'/}
         </td><td>
-        #{sparta.field name:'workflowstatus'/}
+        #{sparta.lookupField name:'workflowstatus', realm:'sparta.eco.workflowstate'/}       
         </td></tr>
 
         #{sparta.field name:'customer'/}

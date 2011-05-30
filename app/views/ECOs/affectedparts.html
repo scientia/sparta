@@ -1,8 +1,4 @@
 <div id="relation">
-		#{if objects.size()}
-		<div class="listSort">
-		
-		</div>
 	<div id="coreListTable">
 		#{core.table fields:['name', 'project','dateCreated', 'lastUpdated']}
             #{core.custom 'name'}
@@ -11,9 +7,8 @@
                </a>
             #{/core.custom}
         #{/core.table}
-	</div>  
-    #{/if}	
-	#{else}
-        Nothing Found
-    #{/else}	
+        #{if objects.size() ==0}
+        &{'core.nothing.found'}
+        #{/if}
+	</div>  	
 </div>

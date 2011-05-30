@@ -1,6 +1,4 @@
 <div id="relation">
-		#{if objects.size()}
-		<h2 id="coreListTitle">&{'core.list.title', 'Documents'}</h2>
 	<div id="coreListTable">
 		#{core.table fields:['name', 'number', 'project']}
             #{core.custom 'name'}
@@ -9,9 +7,9 @@
                </a>
             #{/core.custom}
         #{/core.table}
+        #{if objects.size() ==0}
+        &{'core.nothing.found'}
+        #{/if}
 	</div>
-    #{/if}	
-	#{else}
-	Nothing Else
-	#{/else}	
+   	
 </div>

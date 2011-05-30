@@ -7,18 +7,22 @@
 
 <div id="coreShow " class="${type.name}">
     <div class="listSort">
-	   &nbsp&nbsp &{'design.document.show.title', type.modelName} : ${object.number}- -${object.revision}-${object.iteration}
+	   &nbsp&nbsp &{'design.document.show.title', type.modelName} : ${object.displayName}
 	</div>
 	<div class="listButtons">
 	   #{sparta.toolbar}
-	      #{sparta.delete id:object._key(), name:type.modelName /}
-	      #{sparta.edit id:object._key(), name:type.modelName /}
+	       #{sparta.delete id:object._key(), name:type.modelName /}
+	       #{sparta.tabitem id:object._key(), name:type.modelName /}
+	       #{sparta.clone id:object._key(), name:type.modelName /}
+	       #{sparta.revise id:object._key(), name:type.modelName /}
+	       #{sparta.freeze id:object._key(), name:type.modelName /}
+	       #{sparta.edit id:object._key(), name:type.modelName /}
 	   #{/sparta.toolbar}
 	</div>
 	<div id="edit-tabs">
 	    <ul>
-		  <li><a href="#basic-info">Basic Info</a></li>
-		  <li><a href="#edit-relations">Edit Relations</a></li>		
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>		
 	    </ul>
 	  <div id="basic-info" class="ui-widget">
 	    <table><tbody>
@@ -31,9 +35,13 @@
 	       </tr><tr>
 	         #{core.element name:"iteration", value:(object? object['iteration'] : null) /}
 	         #{core.element name:"project", value:(object.project? object.project['name'] : null) /}
-	       </tr><tr>	       
-	         #{core.element name:"frozen", value:(object? object['frozen'] : null) /}
-	         #{core.element name:"clone", value:(object? object['clone'] : null) /}
+	       </tr><tr>
+	         #{core.element name:"description", value:(object? object['description'] : null) /}
+	         #{sparta.lookupValueField name:"subtype", realm:"sparta.design.doctypes", value:(object? object['subtype'] : null) /}
+	         
+	       </tr><tr>
+ 	         #{core.element name:"cloned", value:(object? object['cloned'] : null) /}
+	         #{core.element name:"frozen", value:(object.project? object['frozen'] : null) /}
 	       </tr><tr>
 	         #{core.element name:"clonedBy", value:(object? object['clonedBy'] : null) /}
 	         #{core.element name:"revisedBy", value:(object.revisedBy? object.revisedBy : null) /}
@@ -70,8 +78,12 @@
 		<!-- #{sparta.editrelation object:object, label:"Documents", name:"partdocs", geturl:"/users/documents/listdocs"}
 		''
 		#{/sparta.editrelation} -->		 
-		
-		#{sparta.fileupload posturl:'/dashboard/dump', uploadurl:'/dashboard/upload'/}	
+		#{if object.project}
+		#{sparta.fileupload type:type, object:object, posturl:'/dashboard/dump', uploadurl:'/files/upload'/}
+		#{/if}
+		#{else}
+		Update the project to upload files.
+		#{/else}	
 	    </div>
     </div>
 </div>

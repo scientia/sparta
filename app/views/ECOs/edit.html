@@ -1,8 +1,4 @@
 #{extends 'core/layout.html' /}
-<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
-<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-facebook.css'}" />
-<script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
-
 <div id="coreShow" class="${type.name}">
 	<div class="listSort span-18">
 	&{'sparta.part.edit.title', object.displayName}
@@ -10,57 +6,176 @@
     <div class="ui-corner-all">
     <div class="listButtons">
     #{sparta.toolbar}
-	#{sparta.add name:type.modelName /}
-	#{sparta.delete id:object._key(), name:type.modelName /}
-	#{sparta.delete id:object._key(), name:type.modelName /}
-	#{sparta.delete id:object._key(), name:type.modelName /}
+	#{sparta.show id:object._key(), name:type.modelName /}
+	#{sparta.add name:type.modelName /}	
 	#{sparta.delete id:object._key(), name:type.modelName /}
     #{/sparta.toolbar}
     </div>
     
-    <div id="tabs">
+    <div id="edit-tabs">
 	<ul>
-		<li><a href="#basic-info">Basic Info</a></li>
-		<li><a href="#edit-relations">Relations</a></li>		
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>			
 	</ul>
-	
-	
-	<div id="edit-relations">
-
-		<div style="border:#CCCCCC solid 1px; min-height:150px; margin-bottom: 5px;" >
-		<div class="mRelField" style="border-bottom:1px solid #EEEEEE;padding:10px;position:relative;">
-		#{form action:@addusers(), enctype:'multipart/form-data'}
-		<label for="object_name"> Documents </label>
-		<input type="text" id="demo-input" name="partdocs" />		
-        <span class="mRelButton"><input id="savedocs" type="submit" name="_savedocs" value="&{'core.save', type.modelName}" /></span>
-        #{/form}
-        </div>
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $("#demo-input").tokenInput("/users/parts/userlist",  {
-                                         theme: "facebook"
-                                     });
-        $("#savedocs").button();
-        });
-        </script>
-		
-		</div>
-		<div style="border:#CCCCCC solid 1px; height:150px; margin-bottom: 5px;" ></div>
-	</div>
 	<div id="basic-info"class="objectForm">
 	
 	#{form action:@save(object._key()), enctype:'multipart/form-data'}
 	    <div >
 		#{sparta.form }
-		#{core.element name:"number", value:(object.identifier? object.identifier['number'] : null) /}
-	    #{core.element name:"tab", value:(object.identifier? object.identifier['tab'] : null) /}
-	    #{core.element name:"servicePart", value:(object.identifier? object.identifier['servicePart'] : null) /}
-		#{sparta.field name:'name'/}
-		#{sparta.field name:'material'/}
-		#{sparta.field name:'finish'/}
+		<table>
+		<tbody>
+		<tr><td>
+		#{core.element name:'number' ,  value:(object? object['number'] : null)/}
+		</td><td>&nbsp</td></tr>
+		<tr><td>
+		<div class="coreField"> 
+          <span >&{'project'} :</span>
+          <span class="value"><strong>&{(object? object['project'] : null)}</strong></span>
+        </div> 		
+		</td><td>
+		<div class="coreField"> 
+            <span >&{'changeClass'} :</span>
+            <span class="value"><strong>#{sparta.lookupValue realm:"sparta.eco.changeclass", code:(object? object['changeClass'] : null)/}</strong></span>
+        </div>				
+		</td></tr>
+		<tr><td> #{sparta.field name:'name'/}
+				
+		</td><td>
+		#{sparta.field name:'approvalPlan'/}			
+		</td></tr>
+		<tr><td>
 		#{sparta.field name:'description'/}
-		#{sparta.field name:'organization'/}
-		#{sparta.field name:'project'/}		
+		</td><td>
+		#{sparta.field name:'justification'/}
+		</td></tr>
+		<tr><td>
+		#{sparta.field name:'affectedApps'/}
+		</td><td>
+		#{sparta.field name:'backgroundFacts'/}
+		</td></tr>
+		
+		<tr><td>
+		
+		</td><td>		
+		#{sparta.field name:'analyst'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'nextOrder'/}
+		</td><td>
+		#{sparta.field name:'nextPO'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'atVendor'/}
+		</td><td>
+		#{sparta.field name:'whseIssue'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'inAsm'/}
+		</td><td>
+		#{sparta.field name:'inTest'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'burnIn'/}
+		</td><td>
+		#{sparta.field name:'systemTest'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'inFGS'/}
+		</td><td>
+		#{sparta.field name:'inField'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'urgency'/}		
+		</td><td>
+		#{sparta.field name:'retrofit'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'revReason'/} 
+		</td><td>
+		#{sparta.field name:'regulators'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'swfw'/}
+		</td><td>
+		#{sparta.field name:'tools'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'testEquip'/}
+		</td><td>
+		#{sparta.field name:'assmProcess'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'suppliers'/}
+		</td><td>
+		#{sparta.field name:'packaging'/}
+		</td></tr>
+		
+		<tr><td>
+		#{sparta.field name:'publications'/}
+		</td><td>
+		#{sparta.field name:'productSpec'/}
+		</td></tr>
+		
+		<tr><table><tr>
+		<td>
+		#{sparta.field name:'plannedDate'/}
+		</td><td>
+		#{sparta.field name:'replanDate'/}
+		</td><td>
+		#{sparta.field name:'actualDate'/}
+		</td>
+		</tr><tr>
+		<td>
+		#{sparta.field name:'startDate'/}
+		</td><td>
+		#{sparta.field name:'mrpUpdated'/}
+		</td>
+		<td>#{sparta.field name:'closedDate'/}</td>		
+		</tr>
+		<tr><td>#{sparta.field name:'designComplete'/}</td><td></td></tr>
+		</table></tr>
+		
+        <tr><td>
+		#{sparta.field name:'solution'/}
+		</td><td>
+		</td></tr>
+		
+        <tr><td>
+        #{sparta.field name:'analyst'/}
+        </td><td>
+        #{sparta.field name:'evaluator'/}
+        </td></tr>
+
+        <tr><td>
+        #{sparta.field name:'manager'/}
+        </td><td>
+        #{sparta.field name:'verifier'/}
+        </td></tr>
+        
+        <tr><td>
+        #{sparta.lookupField name:'problemStatus', realm:'sparta.change.problemstatus'/}        
+        </td><td>
+        #{sparta.field name:'reason'/}
+        </td></tr>
+
+        <tr><td>
+        #{sparta.field name:'acceptConditions'/}
+        </td><td>
+        #{sparta.lookupField name:'workflowstatus', realm:'sparta.eco.workflowstate'/}       
+        </td></tr>
+
+        #{sparta.field name:'customer'/}
+		</tbody>
+		</table>
 		#{/sparta.form}
 		</div>
 		<p class="coreButtons button">
@@ -70,32 +185,5 @@
 	#{/form}
 	</div>
    </div>
-	
-	
-	
-	
-	<!-- #{form action:@adddocument(object._key()), enctype:'multipart/form-data'}
-            <select id="documents" name="select3">
-                <option value="test1">sleep</option>
-                <option value="test3">sport</option>
-                <option value="test3">freestyle</option>
-            </select>
-            <br/>
-            <br/>
-            <input type="submit" value="Send">
-     #{/form}
-	#{form @delete(object._key())}
-	
-		<p class="coreDelete">
-			<input type="submit" value="&{'core.delete', type.modelName}" />
-		</p>
-	#{/form}-->
-   
    </div>
 </div>
-
-<script>
-$(function() {
-	$( "#tabs" ).tabs();
-});
-</script>

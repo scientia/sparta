@@ -29,16 +29,16 @@
 			    #{form @Secure.authenticate()}			    
 			    <table>
                    <tbody>
-                      <tr>
-                         <td ><label for="username">&{'secure.username'}</label></td>
+                      <tr  class="login-tr">
+                         <td><label for="username">&{'secure.username'}</label></td>
                          <td><label for="password">&{'secure.password'}</label></td>
                          </tr>
-                         <tr>
+                         <tr class="login-tr">
                          <td><input type="text" name="username" id="username" value="${flash.username}" size="20" /></td>
                          <td><input type="password" name="password" id="password" value="" size="20"/></td>
                          <td><input type="submit" id="signin" value="&{'secure.signin'}" /></td>
                          </tr>
-                         <tr>
+                         <tr class="login-tr">
                          <td><label for="remember">&{'secure.remember'}</label></td>
                          <td><input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} /></td>                                                  
                          </tr>                                    

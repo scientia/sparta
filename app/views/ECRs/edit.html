@@ -1,8 +1,4 @@
 #{extends 'core/layout.html' /}
-<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
-<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
-<script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
-<script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
 
 <div id="coreShow" class="${type.name}">
 	<div class="listSort span-18">
@@ -18,33 +14,9 @@
     </div>    
     <div id="edit-tabs">
 	<ul>
-		<li><a href="#basic-info">Basic Info</a></li>
-		<!-- <li><a href="#edit-relations">Relations</a></li>-->		
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+				
 	</ul>
-	<!-- <div id="edit-relations">
-	    #{sparta.editrelation object:object, label:"Parts", name:"used", geturl:"/users/parts/listparts"}
-		''
-		#{/sparta.editrelation}
-         
-		#{sparta.editrelation object:object, label:"ECOs", name:"partecos", geturl:"/users/parts/listparts"}
-		''
-		#{/sparta.editrelation}
-		
-		#{sparta.editrelation object:object, label:"Documents", name:"partdocs", geturl:"/users/documents/listdocs",postmethod:"adddocuments" }
-		''
-		#{/sparta.editrelation}
-		 
-		#{sparta.editrelation object:object, label:"Customer", name:"partcustomers", geturl:"/users/documents/listdocs",postmethod:"adddocuments" }
-		''
-		#{/sparta.editrelation}   
-        
-        #{sparta.editrelation object:object, label:"Plants", name:"partplants", geturl:"/users/documents/listdocs",postmethod:"adddocuments" }
-		''
-		#{/sparta.editrelation}
-		
-		#{sparta.fileupload posturl:'/dashboard/dump', uploadurl:'/dashboard/upload'/}
-			
-	</div>-->
 	<div id="basic-info"class="objectForm">
 	
 	#{form action:@save(object._key()), enctype:'multipart/form-data'}
@@ -79,7 +51,7 @@
 		<tr><td>
 		#{sparta.field name:'verifier'/}
 		</td><td>
-		#{sparta.field name:'problemStatus'/}
+		#{sparta.lookupField name:'problemStatus', realm:'sparta.change.problemstatus'/}
 		</td></tr>
 		
 		<tr><td>

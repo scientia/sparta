@@ -11,14 +11,18 @@
 	</div>
 	<div class="listButtons">
 	   #{sparta.toolbar}
+	   <div style="display:inline; float:left;">
+<a  href="@{addTask(object._key())}">&{'core.add', 'Task'}</a>
+</div>
 	      #{sparta.delete id:object._key(), name:type.modelName /}
 	      #{sparta.edit id:object._key(), name:type.modelName /}
 	   #{/sparta.toolbar}
 	</div>
 	<div id="edit-tabs">
 	    <ul>
-		  <li><a href="#basic-info">Basic Info</a></li>
-		  <li><a href="#edit-relations">Edit Relations</a></li>		
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>
+		  <li><a href="@{tasks(object._key())}">Tasks</a></li>	
 	    </ul>
 	  <div id="basic-info" class="ui-widget">	    
 	    <table>
@@ -53,8 +57,8 @@
          
          <tr><td>
          #{core.element name:"verifier", value:(object.verifier? object.verifier['username'] : null) /}
-         </td><td>
-         #{core.element name:"problemStatus", value:(object? object['problemStatus'] : null) /}
+         </td><td>        
+         #{sparta.lookupValueField name:"problemStatus", realm:"sparta.change.problemstatus", value:(object? object['problemStatus'] : null) /}         
          </td></tr>
          
          <tr><td>
@@ -66,7 +70,7 @@
          <tr><td>
          #{core.element name:"enggSignoff", value:(object? object['enggSignoff'] : null) /}
          </td><td>
-         #{core.element name:"workflowstatus", value:(object? object['workflowstatus'] : null) /}
+         #{sparta.lookupValueField name:"workflowstatus", realm:"sparta.ecr.workflowstatus", value:(object? object['workflowstatus'] : null) /}        
          </td></tr>
      	</tbody>
 		</table>
@@ -101,19 +105,24 @@
 		    '@{addrfncddocs(object._key())}'
 		    #{/sparta.editrelation}
 		 
-		    #{sparta.editrelation object:object, label:"Customer", name:"partcustomers", geturl:"/users/customers/listcustomers"}
+		    #{sparta.editrelation object:object, label:"Customer", name:"changecustomers", geturl:"/users/customers/listcustomers"}
 		    '@{addcustomers(object._key())}'
 		    #{/sparta.editrelation}   
         
-            #{sparta.editrelation object:object, label:"Plants", name:"partplants", geturl:"/users/plants/listplants" }
+            #{sparta.editrelation object:object, label:"Plants", name:"changeplants", geturl:"/users/plants/listplants" }
 		    '@{addplants(object._key())}'
 		    #{/sparta.editrelation}
 		
-            #{sparta.editrelation object:object, label:"Suppliers", name:"partsuppliers", geturl:"/users/suppliers/listsuppliers" }
+            #{sparta.editrelation object:object, label:"Suppliers", name:"changesuppliers", geturl:"/users/suppliers/listsuppliers" }
 		    '@{addsuppliers(object._key())}'
 		    #{/sparta.editrelation}
 				
-		    #{sparta.fileupload posturl:'/dashboard/dump', uploadurl:'/dashboard/upload'/}		
+		    #{if object.project}
+		    #{sparta.fileupload type:type, object:object, posturl:'/dashboard/dump', uploadurl:'/files/upload'/}
+		    #{/if}
+		    #{else}
+		    Update the project to upload files.
+		    #{/else}		
 	    </div>
     </div>
 </div>

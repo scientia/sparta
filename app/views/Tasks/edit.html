@@ -1,0 +1,57 @@
+#{extends 'core/layout.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
+<script src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
+<script src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+
+<div id="coreShow" class="${type.name}">
+	<div class="listSort span-18">
+	&{'sparta.part.edit.title', object.displayName}
+	</div>
+    <div class="ui-corner-all">
+    <div class="listButtons">
+    #{sparta.toolbar}
+	#{sparta.show id:object._key(), name:type.modelName /}
+	#{sparta.add name:type.modelName /}	
+	#{sparta.delete id:object._key(), name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>    
+    <div id="edit-tabs">
+	<ul>
+		<li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>			
+	</ul>	
+	<div id="basic-info"class="objectForm">
+	
+	#{form action:@save(object._key()), enctype:'multipart/form-data'}
+	    <div >
+		#{sparta.form}
+		#{sparta.field name:'name'/}
+		#{sparta.field name:'project'/}		
+		#{sparta.field name:'description'/}	
+		#{sparta.field name:'requestedEndDate'/}		
+		#{sparta.field name:'actionTaken'/}
+		#{sparta.field name:'remarks'/}
+		#{sparta.field name:'assignee'/}
+		#{sparta.field name:'planStartDate'/}	
+		#{sparta.field name:'planEndDate'/}	
+		#{sparta.field name:'actualStartDate'/}
+		#{sparta.field name:'actualEndDate'/}
+		#{sparta.field name:'effortDriven'/}
+		#{sparta.field name:'duration'/}
+		#{sparta.field name:'percentcomplete'/}
+		#{sparta.field name:'priority'/}
+		#{sparta.lookupField name:'workflowstatus', realm:'sparta.tasks.workflowstatus'/}
+		#{/sparta.form}
+		</div>
+		<p class="coreButtons button">
+			<input type="submit" name="_save" value="&{'core.save', type.modelName}" />
+			<input type="submit" name="_saveAndContinue" value="&{'core.saveAndContinue', type.modelName}" />
+		</p>
+	#{/form}
+	</div>
+   </div>
+   </div>
+</div>
+
+
+		
