@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<cloudbees-web-app xmlns="http://www.cloudbees.com/xml/webapp/1">
-<resource name="jdbc/<Your project name>" auth="Container" type="javax.sql.DataSource">
-<param name="username" value="<your username>" />
-<param name="password" value="<your password>" />
-<param name="url" value="jdbc:cloudbees://<your db" />
-</resource></cloudbees-web-app> 
+ <cloudbees-web-app xmlns="http://www.cloudbees.com/xml/webapp/1">
+ <resource name="jdbc/spartadb" auth="Container" type="javax.sql.DataSource">
+ <param name="username" value="spartauser" />
+ <param name="password" value="sparta123" />
+ <param name="url" value="jdbc:cloudbees://spartadb" />
+</resource>
+</cloudbees-web-app>
