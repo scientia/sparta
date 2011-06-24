@@ -1,0 +1,43 @@
+#{set title:type.name /}
+#{extends 'core/layout.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/apprise.min.css'}" />
+<script src="@{'/public/javascripts/apprise.min.js'}"></script>
+<div>
+    <div class="listSort">
+	&{'core.list.title', type.name}
+	</div>
+	<div class="listButtons">
+	#{sparta.toolbar}
+	#{sparta.add name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>
+    <div class="listSort"> <div id="search-form" style="float:right;">#{core.search /}</div></div>
+	<div id="coreListTable">
+		#{core.table fields:['name','applicationDomain','releaseState','configuration'] }
+		  #{core.custom 'applicationDomain'}
+            #{sparta.lookupValue realm:"sparta.context.applicationdomain", code:(object? object['applicationDomain'] : null)/}              
+          #{/core.custom}
+          
+          #{core.custom 'releaseState'}
+            #{sparta.lookupValue realm:"sparta.context.releasestate", code:(object? object['releaseState'] : null)/}              
+          #{/core.custom}
+          
+          #{core.custom 'configuration'}
+            #{sparta.lookupValue realm:"sparta.context.configuration", code:(object? object['configuration'] : null)/}              
+          #{/core.custom}
+          
+        #{/core.table}
+		#{sparta.pagination/}
+		
+	</div>
+	
+	#{if objects.size > 10}
+	<div class="listButtonsBottom">
+	#{sparta.toolbar}
+	#{sparta.add name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>
+    #{/if}
+	<div>
+     </div>
+</div>

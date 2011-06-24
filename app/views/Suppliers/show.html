@@ -1,0 +1,39 @@
+#{set title:(object? object['displayName'] : null)/}
+#{extends 'core/layout.html' /}
+<div id="coreShow " class="${type.name}">
+    <div class="listSort">
+	   &nbsp&nbsp &{'supplier.show.title', type.modelName} : ${object.displayName}
+	</div>
+	<div class="listButtons">
+	   #{sparta.toolbar}
+	      #{sparta.delete id:object._key(), name:type.modelName /}
+	      #{sparta.edit id:object._key(), name:type.modelName /}
+	   #{/sparta.toolbar}
+	</div>
+	<div id="edit-tabs">
+	    <ul>
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		 <!--  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li> -->		
+	    </ul>
+	  <div id="basic-info" class="ui-widget">
+	    <table><tbody>
+	       <tr>
+	           #{core.element name:"name", value:(object? object['name'] : null) /}	
+           </tr><tr>
+	           #{core.element name:"dateCreated", value:(object? object['dateCreated'] : null) /}
+	           #{core.element name:"lastUpdated", value:(object? object['lastUpdated'] : null) /}
+	       </tr>
+	    </tbody></table>
+	    <br/>      
+         
+     </div>          
+        <div id="edit-relations">
+	    	
+	    </div>
+    </div>
+</div>
+<script>
+$(function() {
+	$( "#edit-tabs" ).tabs();
+});
+</script>

@@ -1,0 +1,14 @@
+<div id="relation">
+	<div id="coreListTable">
+		#{core.table fields:['name', 'assignee', 'requestedEndDate', 'workflowstatus']}
+            #{core.custom 'name'}
+               <a href="@{Tasks.show(object.id)}">
+               ${object.name.length() > 50 ? object.name[0..50] + '…' : object.name}
+               </a>
+            #{/core.custom}
+            #{core.custom 'workflowstatus'}
+            #{sparta.lookupValue realm: 'sparta.tasks.workflowstatus', code:object.workflowstatus/}            
+            #{/core.custom}
+        #{/core.table}
+	</div>
+</div>

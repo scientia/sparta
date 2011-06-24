@@ -1,0 +1,39 @@
+#{extends 'core/layout.html' /}
+
+<div id="coreBlank" class="${type.name} ">
+	<div class="listSort">
+	&{'core.blank.title', type.modelName}
+	</div>
+	<div class="objectForm">
+	
+	#{form action:@create(), enctype:'multipart/form-data'}
+	<div class="ui-widget">
+		
+		#{sparta.form}
+		#{sparta.field name:'name'/}
+		#{sparta.field name:'project'/}		
+		#{sparta.field name:'description'/}
+		<div class="coreField core_servicePart">
+        <label for="object_servicePart">Service Part?</label>
+        <input id="object_servicePart" class="" type="checkbox" name="object.identifier.servicePart" value="true"
+        ${(params["servicePart"] ? params.getAll("servicePart")[0] == 'true' : _value) ? 'checked="true"'.raw() : ''}  size="50" />
+        <input type="hidden" name="object.identifier.servicePart" value="false" />
+        <span class="coreHelp"></span></div>		
+		#{sparta.uom name:'unitOfMeasure'/}
+		#{sparta.field name:'unitValue'/}		
+		#{sparta.lookupField name:'finish', realm:'sparta.product.finish'/}
+		#{sparta.lookupField name:'releaseState', realm:'sparta.product.releasestate'/}
+		#{sparta.lookupField name:'material', realm:'sparta.product.material'/}
+		#{sparta.field name:'makeOrBuy'/}		
+		#{sparta.lookupField name:'location', realm:'sparta.product.location'/}
+		#{/sparta.form}
+		</div>
+		<p class="coreButtons button">
+			<input type="submit" name="_save" value="&{'core.save', type.modelName}" />
+			<input type="submit" name="_saveAndContinue" value="&{'core.saveAndContinue', type.modelName}" />
+			<input type="submit" name="_saveAndAddAnother" value="&{'core.saveAndAddAnother', type.modelName}" />
+		</p>
+	#{/form}
+	</div>
+
+</div>

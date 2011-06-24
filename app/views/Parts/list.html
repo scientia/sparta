@@ -1,0 +1,48 @@
+#{set title:type.name /}
+#{extends 'core/layout.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/apprise.min.css'}" />
+<script src="@{'/public/javascripts/apprise.min.js'}"></script>
+<div >
+    <div class="listSort">
+	&{'core.list.title', type.name}
+	</div>
+	<div class="listButtons">
+	#{sparta.toolbar}
+	#{sparta.add name:type.modelName /}
+	#{sparta.bulkfreeze name:type.modelName /}
+	#{sparta.bulkunfreeze name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>
+     <div class="listSort"><div id="search-form" style="float:right;">#{core.search /}</div></div>
+    <div id="coreListTable">
+		#{core.table fields:['displayName','name','project','finish','cloned','frozen', 'lastUpdated']}
+            #{core.custom 'displayName'}            
+               <a href="@{Parts.show(object.id)}">
+               ${object.displayName.length() > 50 ? object.displayName[0..50] + '…' : object.displayName}
+               </a>
+            #{/core.custom}
+            
+            #{core.custom 'finish'}
+            #{sparta.lookupValue realm:"sparta.product.finish", code:(object? object['finish'] : null)/}              
+            #{/core.custom}
+            
+            #{core.custom 'material'}
+            #{sparta.lookupValue realm:"sparta.product.material", code:(object? object['material'] : null)/}              
+            #{/core.custom}
+            
+            
+        #{/core.table}
+        #{sparta.pagination/}
+	   </div>
+	
+	
+	#{if objects.size > 10}
+	<div class="listButtonsBottom">
+	#{sparta.toolbar}
+	#{sparta.add name:type.modelName /}
+    #{/sparta.toolbar}
+    </div>
+    #{/if}		
+	<div>
+     </div>
+</div>

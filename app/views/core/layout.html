@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>&{'main.title'} - #{get 'title' /}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/core.css'}" />
+        <link rel="stylesheet" type="text/css" media="print" href="@{'/public/css/print.css'}">
+        <!--<link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/stylesheets/_menu.css'}"> -->
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/css/jd-menu.css'}">
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="@{'/public/css/screen.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/jquery-ui-1.8.9.custom.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/fg.menu.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/main.css'}" /> 
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/css/token-input-sparta.css'}" />
+        
+		<!--[if lt IE 8]><link rel="stylesheet" type="text/css" media="screen, projection" href="/css/ie.css"><![endif]-->
+        #{get 'moreStyles' /}               
+       <!-- <script src="@{'/public/javascripts/jquery.tools.min.js'}"></script> -->
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts/jquery-1.4.4.min.js'}"></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts/jquery-ui-1.8.9.custom.min.js'}"></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts/jquery.bgiframe.js'}" ></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts/jquery.positionBy.js'}"></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts//jquery.dimensions.js'}"></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts//jquery.jdMenu.js'}"></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts/jquery.tokeninput.js'}"></script>
+       <script type="text/javascript" charset="utf-8" src="@{'/public/javascripts/ejohn-templating.js'}"></script>
+        #{get 'moreScripts' /}
+        <script type="text/javascript">
+         $(function(){
+            $('#navigation > ._menu_list').addClass('jd_menu');
+            $('#navigation > ._menu_list').jdMenu();
+        })
+        </script>
+    </head>
+  <body>
+		<div id="header">		
+		<div class="global-nav" >
+		    <ul class="account"><li>
+		    <a tabindex="0" href="#account-option" class="fg-button" id="account-actions"><strong>${session.username}</strong></a>
+            <div id="account-option" class="account-hidden" >
+            <ul>            
+	           <li><a href="@{Settings.index()}">Settings</a></li>
+	           <li><a href="@{Secure.logout()}">Sign Out</a></li>	           
+               </ul>
+             </div></li></ul> 
+		    
+			<h1><a href="@{coreController.index()}">&{'main.title'}</a></h1>
+			</div>
+		</div>
+		
+		<div id="globalContainer"  class="ui-corner-all" >
+		<div id="navigation" class=" ui-corner-all">
+		#{menu.menu /}
+		</div>	
+		
+		
+		 <!--   #{if request.actionMethod != 'index'}
+			<div id="coreBreadcrumb" class="span-18">
+				#{core.navigation/}
+			</div>
+		#{/if}-->
+
+		#{if flash.success}
+			<div id="success-message" class="span-17 coreFlash flashSuccess">
+				${flash.success}
+			</div>
+		#{/if}
+		#{if flash.error || error}
+			<div id="flash-message" class="span-17 coreFlash flashError ">
+				${error ?: flash.error}
+			</div>
+		#{/if}
+		
+		<div  class="span-24 content">
+			#{doLayout /}
+			        
+        <script src="@{'/public/javascripts/fg.menu.js'}"></script>
+        <script src="@{'/public/javascripts/core.js'}"></script>        
+		</div>
+		</div>
+	
+		<div class="footer append-bottom ui-corner-all" style="width:100%; margin-top:5px;">
+			<div id="copyright">&{'application.copyright'}</div>
+		</div>
+	</body>
+</html>
