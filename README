@@ -1,0 +1,41 @@
+
+Sparta PLM is an open source solution for Product Lifecycle Management.
+
+Getting started.
+
+   - sparta is written purely in java, and the view templates use groovy.
+   - It is written using playframework http://www.playframework.org.
+
+Environment Requirements.
+    1. Play framework.
+    2. sparta has three ids configured to run with different environments settings. test, prod, bees.
+    3. test environment uses inmemory database. (default database available with framework.)
+    4. the normal "run" configuration uses mysql db. The settings could be seen in conf.application.conf
+    
+Quick Installation.
+   1. Download play framework, install it as per the install instrructions.
+   2. Download the code from googlecode  or github      
+       https://github.com/downloads/scientia/sparta/sparta-0.1.0-pre-beta.zip
+       http://code.google.com/p/oplm/downloads/
+   3. Unzip on your local drive.
+   4. Assuming you have installed the play framework and added the bin directory to the PATH type-
+      % play test sparta 
+      one level above your sparta directory.(not from sparta directory)
+      This will start sparta server at http://localhost:9001
+      The debug port will run at 8001
+   5. Once you enter the http://localhost:9001 you could see the login form on the right.
+   6. Please enter admin/secret as login credentials and start exploring the sparta.
+
+Using mysql:
+   1. Please look at the mysql configuration in application.conf.
+   2. Create the database with the name specified in the conf file (usually spartadb)
+   3. The mysql configuration can be used with 
+      %play run sparta
+
+Issue logs.
+   1. We are currently using lighthouse for issues management
+      http://sparta.lighthouseapp.com/projects/74983/home
+      http://sparta.lighthouseapp.com/projects/74983-sparta/tickets/new
+   2. Dicussion group is available at http://groups.google.com/group/spartaplm
+
+For any further questions please join the group. If you have any questions that you need to contact me twitt me at @pbhalesain
