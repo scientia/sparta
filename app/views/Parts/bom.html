@@ -1,0 +1,20 @@
+<div id="bom">
+<script type=text/javascript>
+			
+			$(document).ready( function() {
+				
+				$('#bom-left').fileTree({ root: './', script: '/users/parts/bomlevel' }, function(file) { 
+					alert(file);
+				});
+				$('#bom-right').fileTree({ root: './', script: '/users/parts/bomlevel' }, function(file) { 
+					alert(file);
+				});
+				
+			});
+		</script>
+		<div id=bom-left class="" ></div>
+   
+	
+</div>
+
+
