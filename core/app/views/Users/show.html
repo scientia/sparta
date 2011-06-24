@@ -1,0 +1,54 @@
+#{set title:(object? object['displayName'] : null)/}
+#{extends 'core/layout.html' /}
+
+<div id="coreShow " class="${type.name}">
+    <div class="listSort">
+	   &nbsp&nbsp &{'user.show.title', type.modelName} : ${object.displayName}
+	</div>
+	<div class="listButtons">
+	   #{sparta.toolbar}
+	      #{sparta.delete id:object._key(), name:type.modelName /}
+	      #{sparta.edit id:object._key(), name:type.modelName /}
+	   #{/sparta.toolbar}
+	</div>
+	<div id="edit-tabs">
+	    <ul>
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>		
+	    </ul>
+	  <div id="basic-info" class="ui-widget">
+	    <table><tbody>
+	       <tr>
+	          #{core.element name:"username", value:(object? object['username'] : null) /}
+	          #{core.element name:"firstName", value:(object? object['firstName'] : null) /}
+	       </tr><tr>
+	          #{core.element name:"lastName", value:(object? object['lastName'] : null) /}
+	          #{core.element name:"active", value:(object? object['active'] : null) /}	
+	       </tr> <tr>
+	          #{core.element name:"email", value:(object? object['email'] : null) /}
+	       </tr><tr>
+	          #{core.element name:"dateCreated", value:(object? object['dateCreated'] : null) /}
+	          #{core.element name:"lastUpdated", value:(object? object['lastUpdated'] : null) /}
+	       </tr>
+	   </tbody></table>
+	    <br/>      
+          #{sparta.tabs}
+             #{sparta.tab link:"/users/userroles?id="+object._key(), value:"sparta.user.roles"/}
+		     #{sparta.tab link:"/users/userstaffs?id="+object._key(), value:"sparta.user.staffs"/}
+		     #{sparta.tab link:"/users/usermanagedprojects?id="+object._key(), value:"sparta.user.managedprojects"/}
+		     #{sparta.tab link:"/users/userparticipatedprojects?id="+object._key(), value:"sparta.user.projects"/}											
+          #{/sparta.tabs}
+     </div>
+          
+        <div id="edit-relations">
+	       #{sparta.editrelation object:object, label:"Roles", name:"userroles", geturl:"/users/roles/listroles"}
+		      '@{addroles(object._key())}'
+		   #{/sparta.editrelation}		
+	    </div>
+    </div>
+</div>
+<script>
+$(function() {
+	$( "#edit-tabs" ).tabs();
+});
+</script>

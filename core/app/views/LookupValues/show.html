@@ -1,0 +1,61 @@
+#{set title:(object? object['displayName'] : null)/}
+#{extends 'core/layout.html' /}
+<div id="coreShow " class="${type.name}">
+	<div class=" ui-corner-all">	
+    <div class="listSort">
+	&nbsp&nbsp &{'default.show.title', type.modelName} : ${object.value}
+	</div>
+	<div class="listButtons">
+	#{sparta.toolbar}
+	#{sparta.delete id:object._key(), name:type.modelName /}
+	#{sparta.edit id:object._key(), name:type.modelName /}
+	#{/sparta.toolbar}
+	</div>
+	
+	<div id="edit-tabs">
+	    <ul>
+		  <li><a href="#basic-info">&{'sparta.show.basicinfo'}</a></li>
+		  <li><a href="#edit-relations">&{'sparta.show.editrelations'}</a></li>	
+		  <li><a href="#bom">Bom</a></li>
+		  <li><a href="@{versions(object._key())}">Versions</a></li>		
+	    </ul>
+	  <div id="basic-info" class="ui-widget">
+	  
+	    <table><tbody>
+    	    <tr>
+	           #{core.element name:"name", value:(object? object['name'] : null) /}
+	           #{core.element name:"number", value:(object.identifier? object.identifier['number'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"tab", value:(object.identifier? object.identifier['tab'] : null) /}
+	           #{core.element name:"servicePart", value:(object.identifier? object.identifier['servicePart'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"revision", value:(object? object['revision'] : null) /}
+	           #{core.element name:"iteration", value:(object? object['iteration'] : null) /}
+           	</tr><tr>
+	           #{core.element name:"description", value:(object? object['description'] : null) /}
+	           #{core.element name:"project", value:(object.project? object.project['name'] : null) /}
+	        </tr><tr>
+	           #{sparta.lookupValueField name:"finish", realm:"sparta.product.finish", value:(object? object['finish'] : null) /}
+	           #{sparta.lookupValueField name:"material", realm:"sparta.product.material", value:(object? object['material'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"makeOrBuy", value:(object? object['makeOrBuy'] : null) /}
+	           #{core.element name:"releaseState", value:(object? object['releaseState'] : null) /}
+	        </tr><tr>	           
+	           #{core.element name:"cloned", value:(object? object['cloned'] : null) /}
+	           #{core.element name:"frozen", value:(object? object['frozen'] : null) /}
+	        </tr><tr>	   	     
+	           #{core.element name:"clonedBy", value:(object? object['clonedBy'] : null) /}
+	           #{core.element name:"revisedBy", value:(object.revisedBy? object.revisedBy : null) /}
+	        </tr><tr>
+	           #{core.element name:"updatedBy", value:(object? object['updatedBy'] : null) /}
+	           #{core.element name:"createdBy", value:(object? object['createdBy'] : null) /}
+	        </tr><tr>
+	           #{core.element name:"dateCreated", value:(object? object['dateCreated'] : null) /}
+	           #{core.element name:"lastUpdated", value:(object? object['lastUpdated'] : null) /}
+	        </tr><tr>
+	    </tbody></table>
+	            
+          </div>
+    </div>
+	
+</div>

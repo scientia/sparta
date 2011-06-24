@@ -1,0 +1,130 @@
+# Default core messages
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+
+#core.name=core
+
+# Default core messages
+# ~~~~~~
+
+core.title=Symphony
+core.home=Home
+core.blank=New
+core.index.title=Choose the object to edit
+core.index.objectType=Object type
+core.index.action=
+core.index.add=Add
+core.add=Add &{%s}
+core.show=Show &{%s}
+core.list.title=&{%s}
+core.list.size=Total %d &{%s}
+core.list.totalSize=%d total
+core.pagination.previous=« Previous
+core.pagination.next=Next »
+core.pagination.last=Last »»
+core.pagination.first=«« First
+core.pagination.pages=Pages »
+core.show.title=&{%s}
+core.edit.title=&{%s %s}
+core.save=Save
+core.edit=Edit
+core.saveAndContinue=Save and continue editing
+core.cancel=Cancel
+core.hasErrors=Please correct errors
+core.blank.title=Add &{%s}
+core.saveAndAddAnother=Save and create another
+core.delete=Delete &{%s}
+core.created=The &{%s} has been created
+core.saved=The &{%s} has been saved
+core.deleted=The &{%s} has been deleted
+core.delete.error=Cannot delete this object
+core.search=Search
+core.none=(None)
+core.selectValue=(Please select a value)
+
+core.help.required=Required.
+core.help.minlength=Min length is %d.
+core.help.maxlength=Max length is %d.
+core.help.email=Valid email address.
+core.help.dateformat=&{%s} format.
+core.help.numeric=Numeric.
+core.help.min=Must be greater than %d.
+core.help.future=In the future.
+core.help.past=In the past.
+core.help.after=After %s.
+core.help.before=Before %s.
+core.help.range=Between %d and %d
+core.nothing.found=No Objects were found.
+core.bulkdelete=Delete
+
+#Buttons
+
+sparta.button.freeze=Freeze
+sparta.button.clone=Clone
+sparta.button.revise=Revise
+sparta.button.tab=Tab
+
+
+#User
+name=Name
+description=Description
+username=Username
+email=Email
+password=Password
+fullname=Full Name
+profiles=Profiles
+isAdmin= Is Administrator?
+createdBy=Created By
+updatedBy=Updated By
+firstName=First Name
+lastName=Last Name
+passwordHash=Password hash
+loginCount=Login Count
+roles=Roles
+
+#Project
+startDate=Start Date
+endDate=End Date
+manager=Manager
+ownerOrganization=Owner Organization
+DesignDocumentVersion=Design Document
+staff=Staff
+organizations=Organizations
+wipSpace = WIP Space
+releaseSpace = Release Space
+
+#spaces
+mappedDir=Mapped Directory
+servicePart=Service Part?
+tab=Tab
+
+LookupValue=Lookup Values
+realm=Realm
+lookup=Lookup
+code=Code
+value=Value
+codeType=Code Type
+valueType=Value Type
+ordering=Ordering
+internationalize=Internatoionalize
+secure.logout=Logout
+
+
+user.show.title=User
+role.show.title=Role
+project.show.title=Project
+organization.show.title=Organization
+sparta.roles=Roles
+sparta.users=Users
+sparta.user.roles=Roles
+sparta.user.staffs=Staffs
+sparta.user.managedprojects=Managed Projects
+sparta.user.projects=Participates in Projects
+sparta.ownedprojects=Owned Projects
+sparta.participatingprojects=Participated Projects
+sparta.staff.users=Members
+sparta.projects=Projects
+sparta.project.staffs=Staffs
+sparta.project.organizations=Participating Organizations
+sparta.org.participatingprojects=Participating Projects
+sparta.org.ownedprojects=Owned Projects

@@ -1,0 +1,30 @@
+# Routes for the CRUD module
+# ~~~~~~~~~~~
+
+#Custom routes
+
+GET        /users/edit/{id}                              Users.edit
+GET        /organizations/edit/{id}                      Organization.edit
+GET        /staffs/edit/{id}                             Staffs.edit
+GET        /lookups/edit/{id}                            Lookups.edit
+GET        /lookups/{id}/values                          Lookups.lookupvalues
+GET        /lookupvalues/edit/{id}                       LookupValues.edit
+POST	   /users/xactivate/{id}	                     Users.xactivate
+POST	   /users/xdeactivate/{id}	                     Users.xdeactivate
+
+
+#{core.types}
+GET			/?											${type.controllerClass.name.substring(12).replace('$','')}.index
+GET			/${type.controllerName}						${type.controllerClass.name.substring(12).replace('$','')}.list
+GET			/${type.controllerName}/new					${type.controllerClass.name.substring(12).replace('$','')}.blank
+GET			/${type.controllerName}/{id}				${type.controllerClass.name.substring(12).replace('$','')}.show
+GET			/${type.controllerName}/{id}/{field}		${type.controllerClass.name.substring(12).replace('$','')}.attachment
+GET			/${type.controllerName}/edit/{id}			${type.controllerClass.name.substring(12).replace('$','')}.edit
+POST		/${type.controllerName}						${type.controllerClass.name.substring(12).replace('$','')}.create
+POST		/${type.controllerName}/{id}				${type.controllerClass.name.substring(12).replace('$','')}.save
+DELETE		/${type.controllerName}/{id}				${type.controllerClass.name.substring(12).replace('$','')}.delete
+POST		/${type.controllerName}/xfreeze/{id}	    ${type.controllerClass.name.substring(12).replace('$','')}.xfreeze
+POST		/${type.controllerName}/xunfreeze/{id}	    ${type.controllerClass.name.substring(12).replace('$','')}.xunfreeze
+DELETE		/${type.controllerName}/xdelete/{id}	    ${type.controllerClass.name.substring(12).replace('$','')}.xdelete
+#{/core.types}
+GET			/											CoreController.index

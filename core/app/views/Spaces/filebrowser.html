@@ -1,0 +1,12 @@
+<div id="bom">
+<script type=text/javascript>			
+			$(document).ready( function() {
+				var mappedDir = "${object.mappedDir}";				
+				$('#filebrowser').fileTree({ root: mappedDir, script: '/spaces/browsefiles' }, function(file) { 
+					alert(file);
+				});				
+				
+			});
+		</script>
+		<div id="filebrowser" ></div>
+</div>

@@ -1,0 +1,41 @@
+<div style="border:#CCCCCC solid 1px; min-height:50px; margin-bottom: 5px;" >
+ <div class="mRelField" style="border-bottom:1px solid #EEEEEE;padding:10px;position:relative;">		    
+		<label for="object_name"> ${_label} </label>
+		       <input type="text" id="${_name}-input" name="${_name}" />		       	
+               <span class="mRelButton"><input id="save${_name}" type="submit" name="_save${_name}" value="&{'core.save'}" /></span>      
+            <div id="rel-updates-${_name}"  class="rel-updates">              
+               <script type="text/html" id="${_name}_abcd">                    
+		           <p class="rel-update-status"> <%= updates.replace('\n', '<br/>') %></p>                   
+	            </script>
+        </div>	
+   </div>	
+</div>
+
+
+<script>
+(function ($) {
+$("#${_name}-input").tokenInput('${_geturl}',  {
+	 preventDuplicates: true,
+   theme: "sparta"
+});
+
+/** Insted of doBody add posturl**/
+$('#save${_name}').click(function(e) {
+	var items = $('#${_name}-input').val();
+	$('#${_name}-input').val('');
+	/** need to find better way to pass url as method */
+	$.post(#{doBody /}, {${_name}: items}, function(updates){
+		$(updates).each(function() {
+			display${_name}(this);
+		});
+   },
+  "json"); 
+});
+
+$('#save${_name}').button();
+
+var display${_name} = function(updates) {
+	$('#rel-updates-${_name}').append(tmpl('${_name}_abcd', {updates: updates}));
+}
+}(jQuery));
+</script>
